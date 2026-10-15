@@ -78,15 +78,21 @@
   const heroImg = $('[data-parallax]');
   let heroVisible = true;
 
+  // Measured once (and on resize) so scrolling never forces a layout read.
+  let heroMax = hero ? hero.offsetHeight * 0.06 : 0;
+  window.addEventListener('resize', () => { if (hero) heroMax = hero.offsetHeight * 0.06; }, { passive: true });
+  let solid = null;
+  let lastShift = -1;
+
   function onScroll() {
     const y = window.scrollY;
-    nav.classList.toggle('is-solid', y > SOLID_AT || document.body.classList.contains('menu-open'));
+    const wantSolid = y > SOLID_AT || document.body.classList.contains('menu-open');
+    if (wantSolid !== solid) { solid = wantSolid; nav.classList.toggle('is-solid', solid); }
 
     // Hero parallax, capped well under 8% of the hero height.
     if (heroImg && heroVisible && !reduceMotion.matches) {
-      const max = hero.offsetHeight * 0.06;
-      const shift = Math.min(y * 0.12, max);
-      heroImg.style.transform = `translate3d(0, ${-shift}px, 0)`;
+      const shift = Math.round(Math.min(y * 0.12, heroMax));
+      if (shift !== lastShift) { lastShift = shift; heroImg.style.transform = `translate3d(0, ${-shift}px, 0)`; }
     }
     ticking = false;
   }
@@ -107,14 +113,17 @@
     }).observe(hero);
   }
 
-  /* ---------- Nav light follows the pointer while hovering ---------- */
+  /* ---------- Nav light follows the pointer while hovering ----------
+     The light is moved with the CSS `translate` property via --glow-t
+     (compositor-only); see .nav__inner::before in styles.css. */
   const capsule = $('.nav__inner', nav);
   if (capsule && window.matchMedia('(hover: hover)').matches) {
+    // Pointer position across the capsule (0–1) → translate of the 44%-wide light.
+    const toT = (x) => `${(((Math.min(Math.max(x, 0.15), 0.85) - 0.22) / 0.44) * 100).toFixed(1)}%`;
     const track = (e) => {
       if (reduceMotion.matches) return;
       const box = capsule.getBoundingClientRect();
-      const x = Math.min(Math.max((e.clientX - box.left) / box.width, 0.1), 0.9);
-      capsule.style.setProperty('--glow-x', `${(x * 100).toFixed(1)}%`);
+      capsule.style.setProperty('--glow-t', toT((e.clientX - box.left) / box.width));
     };
     let resume = 0;
     capsule.addEventListener('pointerenter', (e) => {
@@ -122,7 +131,10 @@
       clearTimeout(resume);
       // Freeze the drift where it is, then let the transition glide to the pointer.
       if (!capsule.classList.contains('is-tracking')) {
-        capsule.style.setProperty('--glow-x', getComputedStyle(capsule).getPropertyValue('--glow-x'));
+        const now = getComputedStyle(capsule, '::before').translate.split(' ')[0];
+        const px = parseFloat(now);
+        const w = capsule.getBoundingClientRect().width * 0.44;
+        if (now.endsWith('px') && w) capsule.style.setProperty('--glow-t', `${((px / w) * 100).toFixed(1)}%`);
         capsule.classList.add('is-tracking');
       }
       requestAnimationFrame(() => track(e));
@@ -130,12 +142,11 @@
     capsule.addEventListener('pointermove', track);
     capsule.addEventListener('pointerleave', () => {
       if (!capsule.classList.contains('is-tracking')) return;
-      // Glide back to centre, then pick the drift up from its midpoint (50%)
-      // so the light never jumps.
-      capsule.style.setProperty('--glow-x', '50%');
+      // Glide back to the centre, then resume the drift from its midpoint so it never jumps.
+      capsule.style.setProperty('--glow-t', '63.6%');
       resume = setTimeout(() => {
-        capsule.style.removeProperty('--glow-x');
-        capsule.style.animationDelay = '-2.25s';
+        capsule.style.removeProperty('--glow-t');
+        capsule.style.setProperty('--glow-delay', '-2.25s');
         capsule.classList.remove('is-tracking');
       }, 700);
     });
@@ -160,6 +171,7 @@
     const pauseBtn = $('[data-bb-pause]', billboard);
     const pauseLabel = $('[data-bb-pause-label]', billboard);
     let userPaused = reduceMotion.matches;
+    let resting = false; // paused by us while far off screen
     video.muted = true;
 
     const show = (paused) => {
@@ -169,6 +181,7 @@
     };
     const start = () => {
       if (userPaused) return;
+      resting = false;
       if (!video.src && video.dataset.src) { video.src = video.dataset.src; video.load(); }
       const p = video.play();
       if (p && p.catch) p.catch(() => {});
@@ -181,13 +194,21 @@
       if (userPaused) video.pause(); else start();
     });
     // If the browser pauses it (tab hidden, power saving), pick it up again.
-    video.addEventListener('pause', () => { if (!userPaused && !document.hidden) start(); });
+    video.addEventListener('pause', () => {
+      if (resting) { resting = false; return; }
+      if (!userPaused && !document.hidden) start();
+    });
     document.addEventListener('visibilitychange', () => { if (!document.hidden) start(); });
 
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver((entries, obs) => {
-        if (entries.some((e) => e.isIntersecting)) { start(); obs.disconnect(); }
-      }, { rootMargin: '600px 0px' }).observe(billboard);
+      // Decode only while near the screen: it rests when far away and is
+      // already playing again before it scrolls back into view.
+      let near = false;
+      new IntersectionObserver(([entry]) => {
+        near = entry.isIntersecting;
+        if (near) start();
+        else if (!userPaused) { resting = true; video.pause(); }
+      }, { rootMargin: '400px 0px' }).observe(billboard);
       new IntersectionObserver(([entry], obs) => {
         if (entry.isIntersecting) { billboard.classList.add('is-in'); obs.disconnect(); }
       }, { threshold: 0.2 }).observe(billboard);

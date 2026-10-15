@@ -307,12 +307,6 @@ main { overflow-x: clip; }
 /* ==========================================================================
    1. Nav
    ========================================================================== */
-/* Horizontal position of the nav's light; registered so it can animate. */
-@property --glow-x {
-  syntax: "<percentage>";
-  inherits: true;
-  initial-value: 50%;
-}
 
 /* "Liquid glass" capsule: hugs its content, floats centred near the top.
    Over the dark hero the glass is almost clear with a glossy white rim;
@@ -320,7 +314,7 @@ main { overflow-x: clip; }
 .nav {
   --nav-fg: var(--paper);
   --nav-bg: var(--ink);
-  --glass: rgb(255 255 255 / 0.06);
+  --glass: rgb(20 20 22 / 0.28);
   --glass-rim: rgb(255 255 255 / 0.55);
   --glass-blur: blur(6px) saturate(160%) brightness(1.06);
   --divider: rgb(255 255 255 / 0.35);
@@ -337,9 +331,9 @@ main { overflow-x: clip; }
 .nav.is-solid {
   --nav-fg: var(--ink);
   --nav-bg: var(--paper);
-  --glass: rgb(250 250 248 / 0.62);
+  --glass: rgb(250 250 248 / 0.9);
   --glass-rim: rgb(255 255 255 / 0.9);
-  --glass-blur: blur(16px) saturate(160%);
+  --glass-blur: blur(10px);
   --divider: rgb(11 11 12 / 0.18);
   --cta-bg: var(--ink);
   --cta-fg: var(--paper);
@@ -353,22 +347,32 @@ main { overflow-x: clip; }
   height: 56px;
   margin-inline: auto;
   padding: 0 6px 0 20px;
-  border: 1px solid var(--glass-rim);
   border-radius: 999px;
+  position: relative;
+  pointer-events: auto;
+  transition: color 400ms var(--ease);
+}
+/* The glass itself is its own layer behind the nav's contents, so the moving
+   light beside it never forces the blur to be recalculated. */
+.nav__glass {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1px solid var(--glass-rim);
+  border-radius: inherit;
+  /* Clear glass with a glossy rim. No live backdrop blur: it would be
+     recalculated on every frame of scrolling and animation. */
   background: var(--glass);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
   /* Glossy rim: a bright top edge, a faint lower edge, a soft inner glow. */
   box-shadow:
     inset 0 1px 1px rgb(255 255 255 / 0.55),
     inset 0 -1px 1px rgb(255 255 255 / 0.12),
     inset 0 0 20px rgb(255 255 255 / 0.06),
     0 10px 30px -12px rgb(11 11 12 / 0.4);
-  position: relative;
-  pointer-events: auto;
-  transition: background-color 400ms var(--ease), border-color 400ms var(--ease), color 400ms var(--ease);
+  pointer-events: none;
+  transition: background-color 400ms var(--ease), border-color 400ms var(--ease);
 }
-.nav.is-solid .nav__inner {
+.nav.is-solid .nav__glass {
   box-shadow:
     inset 0 1px 1px rgb(255 255 255 / 0.9),
     0 10px 30px -14px rgb(11 11 12 / 0.22);
@@ -383,25 +387,30 @@ main { overflow-x: clip; }
   pointer-events: none;
   transition: opacity 500ms var(--ease);
 }
+/* The light is a fixed gradient 44% of the capsule wide, slid along with the
+   `translate` property (compositor-only, no repaint). --glow-t is where it
+   sits: -16% puts its centre at 15% of the capsule, 143% at 85%. */
+.nav .nav__inner { --glow-t: 63.6%; }
 /* Wide, soft wash */
 .nav .nav__inner::before {
-  top: calc(100% - 6px);
-  left: 4%;
-  right: 4%;
+  top: 100%;
+  left: 0;
+  width: 44%;
   height: 170px;
   z-index: -1;
-  background: radial-gradient(ellipse 34% 100% at var(--glow-x) 0%, rgb(255 255 255 / 0.42), rgb(255 255 255 / 0.12) 45%, transparent 75%);
-  filter: blur(10px);
+  background: radial-gradient(ellipse 78% 100% at 50% 0%, rgb(255 255 255 / 0.4), rgb(255 255 255 / 0.18) 30%, rgb(255 255 255 / 0.06) 55%, transparent 75%);
   transform-origin: 50% 0;
+  translate: var(--glow-t) 0;
 }
 /* Bright lip along the lower edge */
 .nav .nav__inner::after {
-  left: 4%;
-  right: 4%;
+  left: 0;
+  width: 44%;
   bottom: -1px;
   height: 1px;
-  background: linear-gradient(to right, transparent calc(var(--glow-x) - 22%), rgb(255 255 255) var(--glow-x), transparent calc(var(--glow-x) + 22%));
+  background: linear-gradient(to right, transparent, rgb(255 255 255) 50%, transparent);
   box-shadow: 0 0 14px 2px rgb(255 255 255 / 0.4);
+  translate: var(--glow-t) 0;
 }
 .nav.is-solid .nav__inner::before,
 .nav.is-solid .nav__inner::after { opacity: 0; }
@@ -658,66 +667,40 @@ main { overflow-x: clip; }
   .hero::before { inset: 10px; border-radius: 24px; }
 }
 
-/* Shine: a streak of light that travels around the silver frame.
-   --shine is the streak's angle, animated once every 7 seconds. */
-@property --shine {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
+/* Shine: a small streak of light that travels along the silver frame.
+   Performance: one small element moved along the frame's own outline with
+   CSS motion-path (offset-path), so only a tiny area changes per frame. */
+.hero__spark {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  width: 140px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.25) 45%, #fff 92%, transparent);
+  box-shadow: 0 0 10px 1px rgb(255 255 255 / 0.45);
+  offset-path: inset(6px round 18px);
+  offset-rotate: auto;
+  offset-anchor: 100% 50%;
+  offset-distance: 0%;
+  pointer-events: none;
+  will-change: offset-distance;
+}
+@media (min-width: 1024px) {
+  .hero__spark { offset-path: inset(10px round 24px); }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .hero::before {
-    background:
-      conic-gradient(
-        from var(--shine),
-        transparent 0deg 285deg,
-        rgb(255 255 255 / 0.14) 315deg,
-        rgb(255 255 255 / 0.8) 346deg,
-        #fff 354deg,
-        transparent 360deg
-      ),
-      linear-gradient(
-        135deg,
-        rgb(255 255 255 / 0.85) 0%,
-        rgb(200 202 206 / 0.6) 22%,
-        rgb(255 255 255 / 0.32) 48%,
-        rgb(200 202 206 / 0.62) 76%,
-        rgb(255 255 255 / 0.8) 100%
-      );
-    animation: hero-shine 7s linear infinite;
-  }
-  /* Soft halo that travels with the streak: a wider, faint ring. */
-  .hero::after {
-    content: "";
-    position: absolute;
-    inset: 3px;
-    z-index: 0;
-    padding: 7px;
-    border-radius: 21px;
-    background: conic-gradient(
-      from var(--shine),
-      transparent 0deg 300deg,
-      rgb(255 255 255 / 0.1) 330deg,
-      rgb(255 255 255 / 0.32) 352deg,
-      transparent 360deg
-    );
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-    filter: blur(2px);
-    pointer-events: none;
-    animation: hero-shine 7s linear infinite;
-  }
-  /* No work while the hero is off screen. */
-  .hero.is-offscreen::before,
-  .hero.is-offscreen::after { animation-play-state: paused; }
+  .hero__spark { animation: spark-run 7s linear infinite; }
+  .hero.is-offscreen .hero__spark { animation-play-state: paused; }
 }
-@media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
-  .hero::after { inset: 7px; border-radius: 27px; }
+@media (prefers-reduced-motion: reduce) {
+  .hero__spark { display: none; }
 }
-@keyframes hero-shine {
-  to { --shine: 360deg; }
+@supports not (offset-path: inset(1px round 1px)) {
+  .hero__spark { display: none; }
 }
+@keyframes spark-run { to { offset-distance: 100%; } }
 
 .hero__title {
   margin: 1.25rem 0 1.5rem;
@@ -757,8 +740,6 @@ main { overflow-x: clip; }
   border: 1px solid rgb(255 255 255 / 0.55);
   background: rgb(255 255 255 / 0.06);
   color: var(--paper);
-  -webkit-backdrop-filter: blur(6px) saturate(160%);
-  backdrop-filter: blur(6px) saturate(160%);
   box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.5), inset 0 -1px 1px rgb(255 255 255 / 0.1), 0 10px 26px -16px rgb(0 0 0 / 0.6);
 }
 .hero__btn--glass:hover { background: rgb(255 255 255 / 0.14); }
@@ -804,6 +785,7 @@ main { overflow-x: clip; }
   background-repeat: no-repeat;
   transform: scale(1.06);
   transform-origin: 30% 50%;
+  will-change: transform;
 }
 @media (min-width: 801px) {
   .trust__silk {
@@ -845,9 +827,9 @@ main { overflow-x: clip; }
   padding: 0.25rem 1.25rem;
   border: 1px solid rgb(255 255 255 / 0.8);
   border-radius: 24px;
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.5), rgb(255 255 255 / 0.22));
-  -webkit-backdrop-filter: blur(10px) saturate(130%);
-  backdrop-filter: blur(10px) saturate(130%);
+  /* Frosted look without a live blur: the silk moves underneath, so a
+     backdrop-filter would be recalculated on every frame. */
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.66), rgb(255 255 255 / 0.4));
   box-shadow:
     inset 0 1px 0 #fff,
     inset 0 -1px 0 rgb(11 11 12 / 0.06),
@@ -936,9 +918,9 @@ main { overflow-x: clip; }
     position: absolute;
     inset: 0;
     background: inherit;
-    mix-blend-mode: soft-light;
     opacity: 0;
     transform: scale(1.12) translate3d(3%, 1%, 0);
+    will-change: transform, opacity;
     animation: silk-ripple 6.5s ease-in-out infinite alternate;
   }
 
@@ -947,11 +929,11 @@ main { overflow-x: clip; }
     position: absolute;
     inset: -20% -40%;
     z-index: 0;
-    background: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 0.6) 50%, transparent 60%);
+    background: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 0.28) 50%, transparent 60%);
     transform: translateX(-60%);
     animation: trust-sweep 6s var(--ease) 1.2s infinite;
     pointer-events: none;
-    mix-blend-mode: soft-light;
+    will-change: transform;
   }
 
   .trust__plaque::after {
@@ -963,6 +945,7 @@ main { overflow-x: clip; }
     transform: translateX(-120%);
     animation: plaque-glint 7s var(--ease) 2.5s infinite;
     pointer-events: none;
+    will-change: transform;
   }
 
   .js .trust__plaque[data-reveal] .trust__check { transform: scale(0.4); opacity: 0; }
@@ -982,8 +965,8 @@ main { overflow-x: clip; }
 }
 @keyframes silk-ripple {
   0%   { opacity: 0;    transform: scale(1.12) translate3d(4%, 1.5%, 0); }
-  50%  { opacity: 0.55; }
-  100% { opacity: 0.2;  transform: scale(1.2) translate3d(-4%, -2%, 0); }
+  50%  { opacity: 0.32; }
+  100% { opacity: 0.12;  transform: scale(1.2) translate3d(-4%, -2%, 0); }
 }
 @keyframes trust-sweep {
   0%   { transform: translateX(-60%); }
@@ -1695,14 +1678,16 @@ main { overflow-x: clip; }
   .hero__photo img { animation: photo-in 1400ms var(--ease) 150ms both; }
 
   /* Nav light: drifts side to side and breathes; follows the pointer on hover. */
-  .nav .nav__inner {
-    animation: glow-drift 4.5s ease-in-out infinite alternate;
-    transition: background-color 400ms var(--ease), border-color 400ms var(--ease), color 400ms var(--ease), --glow-x 700ms var(--ease);
+  .nav .nav__inner::before {
+    animation: glow-drift 4.5s ease-in-out infinite alternate, glow-breathe 2.4s ease-in-out infinite alternate;
+    animation-delay: var(--glow-delay, 0s), 0s;
   }
-  .nav .nav__inner::before { animation: glow-breathe 2.4s ease-in-out infinite alternate; }
-  .nav .nav__inner.is-tracking { animation: none; }
-  .nav.is-solid .nav__inner,
-  .nav.is-solid .nav__inner::before { animation-play-state: paused; }
+  .nav .nav__inner::after { animation: glow-drift 4.5s ease-in-out infinite alternate; animation-delay: var(--glow-delay, 0s); }
+  /* Following the pointer: drop the drift, glide to --glow-t. */
+  .nav .nav__inner.is-tracking::before { animation: glow-breathe 2.4s ease-in-out infinite alternate; transition: translate 700ms var(--ease), opacity 500ms var(--ease); }
+  .nav .nav__inner.is-tracking::after { animation: none; transition: translate 700ms var(--ease), opacity 500ms var(--ease); }
+  .nav.is-solid .nav__inner::before,
+  .nav.is-solid .nav__inner::after { animation-play-state: paused; }
 
   /* Scroll reveals */
   .js [data-reveal] .rv {
@@ -1737,12 +1722,12 @@ main { overflow-x: clip; }
   to   { opacity: 1; transform: none; }
 }
 @keyframes glow-drift {
-  from { --glow-x: 10%; }
-  to   { --glow-x: 90%; }
+  from { translate: -15.9% 0; }
+  to   { translate: 143.2% 0; }
 }
 @keyframes glow-breathe {
-  from { opacity: 0.4; transform: scale(0.85, 0.8); }
-  to   { opacity: 1;   transform: scale(1.1, 1.15); }
+  from { opacity: 0.4; scale: 0.85 0.8; }
+  to   { opacity: 1;   scale: 1.1 1.15; }
 }
 @keyframes photo-in {
   from { opacity: 0; transform: scale(1.04); }
@@ -1824,8 +1809,8 @@ main { overflow-x: clip; }
   top: -40%;
   width: 70%;
   height: 160%;
-  background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0) 100%);
-  filter: blur(10px);
+  background: radial-gradient(closest-side, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.35) 45%, rgb(255 255 255 / 0) 100%);
+  will-change: transform;
 }
 /* Embossed monogram: very faint, with a light and a dark edge. */
 .about-intro__mark {
@@ -1850,6 +1835,7 @@ main { overflow-x: clip; }
   background-repeat: no-repeat;
   transform: scale(1.1);
   transform-origin: 30% 50%;
+  will-change: transform;
 }
 @media (min-width: 801px) {
   .about-intro__silk {
@@ -1865,9 +1851,9 @@ main { overflow-x: clip; }
     position: absolute;
     inset: 0;
     background: inherit;
-    mix-blend-mode: soft-light;
     opacity: 0;
     transform: scale(1.12) translate3d(3%, 1%, 0);
+    will-change: transform, opacity;
     animation: silk-ripple 6.5s ease-in-out infinite alternate;
   }
   .about-intro.is-offscreen .about-intro__silk,
@@ -2024,9 +2010,7 @@ main { overflow-x: clip; }
   padding: 1.5rem 1.5rem 1.375rem;
   border: 1px solid rgb(255 255 255 / 0.85);
   border-radius: 22px;
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.62), rgb(255 255 255 / 0.32));
-  -webkit-backdrop-filter: blur(10px) saturate(130%);
-  backdrop-filter: blur(10px) saturate(130%);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.74), rgb(255 255 255 / 0.48));
   box-shadow: inset 0 1px 0 #fff, 0 22px 44px -28px rgb(11 11 12 / 0.55);
   color: var(--graphite);
 }
@@ -2148,9 +2132,7 @@ main { overflow-x: clip; }
   padding: 0.5rem 0.875rem;
   border: 1px solid rgb(255 255 255 / 0.35);
   border-radius: 999px;
-  background: rgb(11 11 12 / 0.8);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  background: rgb(11 11 12 / 0.86);
   color: var(--paper);
   font-size: 0.8125rem;
   font-weight: 500;
@@ -3108,9 +3090,7 @@ html.intro-playing .hero__photo img { animation-delay: 4.45s; }
   padding: 0;
   border: 1px solid rgb(255 255 255 / 0.5);
   border-radius: 999px;
-  background: rgb(11 11 12 / 0.28);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  background: rgb(11 11 12 / 0.4);
   color: var(--paper);
   opacity: 0.55;
   cursor: pointer;
@@ -3250,8 +3230,7 @@ html.intro-playing .hero__photo img { animation-delay: 4.45s; }
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 220% 100%;
-  background-position: 0% 50%;
+  background-size: 100% 100%;
 }
 .mv__panel--mission .mv__ghost {
   left: -0.02em;
@@ -3277,15 +3256,7 @@ html.intro-playing .hero__photo img { animation-delay: 4.45s; }
   .mv__panel--mission .mv__ghost { -webkit-text-fill-color: rgb(250 250 248 / 0.35); }
   .mv__panel--vision .mv__ghost { -webkit-text-fill-color: rgb(11 11 12 / 0.3); }
 }
-/* Light travelling slowly across the metal. */
-@media (prefers-reduced-motion: no-preference) {
-  .mv__ghost { animation: metal-sheen 9s ease-in-out infinite alternate; }
-  .mv.is-offscreen .mv__ghost { animation-play-state: paused; }
-}
-@keyframes metal-sheen {
-  from { background-position: 0% 50%; }
-  to   { background-position: 100% 50%; }
-}
+
 
 .mv__switch { display: none; }
 .mv__seam, .mv__hint { display: none; }
@@ -3444,9 +3415,7 @@ html.intro-playing .hero__photo img { animation-delay: 4.45s; }
     padding: 0.375rem 0.875rem;
     border: 1px solid rgb(255 255 255 / 0.35);
     border-radius: 999px;
-    background: rgb(11 11 12 / 0.55);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    background: rgb(11 11 12 / 0.72);
     color: var(--paper);
     font-size: 0.75rem;
     letter-spacing: 0.08em;
@@ -3507,3 +3476,26 @@ html.intro-playing .hero__photo img { animation-delay: 4.45s; }
 @media (max-width: 1023px) {
   .about-intro__mark { left: auto; right: -2%; bottom: -5%; width: min(52vw, 260px); }
 }
+
+/* ==========================================================================
+   Performance: let the browser skip rendering sections far from view.
+   ========================================================================== */
+.principles, .story, .team, .trust--partners, .why, .services, .process,
+.industries, .cta, .contact, .footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+/* ==========================================================================
+   Lite mode (html.lite): set on low-power devices (few CPU cores / little
+   memory). Keeps the main motion (silk drift, frame spark, nav light) and
+   switches off the extra decorative layers so scrolling stays smooth.
+   ========================================================================== */
+.lite .trust__silk::before,
+.lite .about-intro__silk::before,
+.lite .trust::after,
+.lite .trust__plaque::after,
+.lite .about-intro__light { display: none !important; }
+.lite .nav .nav__inner::before { animation: glow-drift 4.5s ease-in-out infinite alternate !important; }
+.lite .nav .nav__inner.is-tracking::before { animation: none !important; }
+.lite .hero__img { will-change: auto; }

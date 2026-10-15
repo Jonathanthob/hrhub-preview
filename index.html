@@ -28,10 +28,15 @@
   <link rel="preload" as="image" type="image/avif"
         imagesrcset="assets/img/hero-satin-sm.avif 768w, assets/img/hero-satin.avif 1536w" imagesizes="100vw" fetchpriority="high">
   <script src="assets/js/preview-api.js"></script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=75">
+  <link rel="stylesheet" href="assets/css/styles.css?v=79">
   <script>
     (function (d) {
       d.classList.add('js');
+      // Low-power devices get a lighter set of background animations (see "Lite mode" in styles.css).
+      try {
+        var cores = navigator.hardwareConcurrency || 8, mem = navigator.deviceMemory || 8;
+        if (cores <= 4 && mem <= 4 || cores <= 2) d.classList.add('lite');
+      } catch (e) {}
       // Cinematic intro: plays on every visit and reload, except for visitors
       // who have asked their device for reduced motion, or who arrive on a
       // ?book link (the booking panel opens straight away instead).
@@ -78,6 +83,7 @@
 
   <header class="nav" data-nav>
     <div class="nav__inner wrap">
+      <span class="nav__glass" aria-hidden="true"></span>
       <a class="nav__logo" href="#top" aria-label="HR Hub Consultancy, back to top">
         
         <img src="assets/logo/hrhub-monogram.svg" alt="" width="60" height="32">
@@ -137,6 +143,8 @@
                alt="An HR consultant talks a client through a document on a laptop">
         </picture>
       </div>
+
+      <span class="hero__spark" aria-hidden="true"></span>
 
       <div class="hero__content wrap">
         <p class="eyebrow eyebrow--light hero__line" style="--i:0">A complete HR solution for your business</p>
@@ -985,7 +993,7 @@
     </aside>
   </div>
 
-  <script src="assets/js/main.js?v=75" defer></script>
+  <script src="assets/js/main.js?v=79" defer></script>
 
 <div class="preview-banner" role="note">Preview site · work in progress · forms are not live yet</div>
 <style>

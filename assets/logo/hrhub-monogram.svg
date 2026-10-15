@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  [PLACEHOLDER] Temporary stand-in for the official "H/R" monogram.
+  Replace this file with the supplied SVG (black version) and keep the
+  same filename. The site recolours it to white on dark backgrounds via
+  a CSS filter only; the artwork itself is never altered.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 64" role="img" aria-label="HR Hub Consultancy">
+  <g fill="#0B0B0C" font-family="Georgia, 'Times New Roman', serif" font-size="52">
+    <text x="4" y="50">H</text>
+    <text x="72" y="50">R</text>
+  </g>
+  <path d="M50 58 L79 4" stroke="#0B0B0C" stroke-width="1.6" fill="none"/>
+</svg>

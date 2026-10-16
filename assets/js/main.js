@@ -285,6 +285,196 @@
     }, { passive: true });
   }
 
+  /* ---------- How we work: interactive principles ----------
+     Desktop: hovering, clicking or focusing a panel opens it. Phones: an
+     accordion (tap to open; tap the open one to close). One open at a time. */
+  const pv = $('[data-pv]');
+  if (pv) {
+    const panels = $$('[data-pv-panel]', pv);
+    const wideQ = window.matchMedia('(min-width: 1024px)');
+    const fine = window.matchMedia('(hover: hover)');
+    const open = (panel) => {
+      panels.forEach((p) => {
+        const on = p === panel;
+        p.classList.toggle('is-active', on);
+        $('[data-pv-btn]', p).setAttribute('aria-expanded', String(on));
+      });
+    };
+    panels.forEach((panel) => {
+      const btn = $('[data-pv-btn]', panel);
+      btn.addEventListener('click', () => {
+        if (!wideQ.matches && panel.classList.contains('is-active')) {
+          panel.classList.remove('is-active');
+          btn.setAttribute('aria-expanded', 'false');
+        } else open(panel);
+      });
+      btn.addEventListener('focus', () => { if (wideQ.matches) open(panel); });
+      panel.addEventListener('pointerenter', (e) => { if (wideQ.matches && fine.matches && e.pointerType === 'mouse') open(panel); });
+      // A soft light that follows the pointer on the open panel.
+      let raf = 0;
+      panel.addEventListener('pointermove', (e) => {
+        if (!panel.classList.contains('is-active') || reduceMotion.matches) return;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const r = panel.getBoundingClientRect();
+          panel.style.setProperty('--px', `${e.clientX - r.left}px`);
+          panel.style.setProperty('--py', `${e.clientY - r.top}px`);
+        });
+      });
+      // Arrow keys move between panels.
+      btn.addEventListener('keydown', (e) => {
+        const i = panels.indexOf(panel);
+        const next = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? panels[i + 1] : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? panels[i - 1] : null;
+        if (next) { e.preventDefault(); $('[data-pv-btn]', next).focus(); if (!wideQ.matches) open(next); }
+      });
+    });
+  }
+
+  /* ---------- Meet the founder ----------
+     Portrait tilts toward the pointer (mouse only, max ~8°) with a light
+     sheen; figures count up when visible; expertise rows open on hover/tap. */
+  const founder = $('[data-founder]');
+  if (founder) {
+    const card = $('[data-tilt]', founder);
+    if (card && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      let raf = 0;
+      card.addEventListener('pointermove', (e) => {
+        if (reduceMotion.matches) return;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width;
+          const y = (e.clientY - r.top) / r.height;
+          card.classList.add('is-tilting');
+          card.style.setProperty('--ry', `${((x - 0.5) * 16).toFixed(2)}deg`);
+          card.style.setProperty('--rx', `${((0.5 - y) * 12).toFixed(2)}deg`);
+          card.style.setProperty('--mx', `${(x * 100).toFixed(1)}%`);
+          card.style.setProperty('--my', `${(y * 100).toFixed(1)}%`);
+        });
+      });
+      card.addEventListener('pointerleave', () => {
+        cancelAnimationFrame(raf);
+        card.classList.remove('is-tilting');
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+      });
+    }
+    // Figures count up once, when they come into view (final values are in the HTML).
+    const nums = $$('[data-count]', founder);
+    const countUp = (el) => {
+      const target = Number(el.dataset.count) || 0;
+      if (reduceMotion.matches) { el.textContent = target; return; }
+      const dur = 1600 + target * 20;
+      const t0 = performance.now();
+      const tick = (now) => {
+        const p = Math.min((now - t0) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 4); // ease-out
+        el.textContent = Math.round(target * eased);
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      el.textContent = '0';
+      requestAnimationFrame(tick);
+    };
+    if ('IntersectionObserver' in window && !reduceMotion.matches) {
+      nums.forEach((el) => { el.textContent = '0'; });
+      const group = $('[data-count-group]', founder);
+      new IntersectionObserver((entries, obs) => {
+        if (entries.some((e) => e.isIntersecting)) { obs.disconnect(); nums.forEach(countUp); }
+      }, { threshold: 0.5 }).observe(group);
+    }
+
+    // Areas of expertise: hover (mouse) or click/tap to open; one open at a time.
+    const rows = $$('[data-fx]', founder);
+    const setOpen = (row, on) => {
+      row.closest('.fx__item').classList.toggle('is-open', on);
+      row.setAttribute('aria-expanded', String(on));
+    };
+    rows.forEach((row) => {
+      row.addEventListener('click', () => {
+        const on = row.getAttribute('aria-expanded') !== 'true';
+        rows.forEach((r) => setOpen(r, r === row && on));
+      });
+      row.addEventListener('pointerenter', (e) => {
+        if (e.pointerType === 'mouse') rows.forEach((r) => setOpen(r, r === row));
+      });
+    });
+  }
+
+  /* ---------- Why choose us: title words + live figures ----------
+     The title is split into words that rise in turn (CSS). When the figures
+     come into view, the numbers count up (the dial lights one tick per year)
+     and the industries ring steps through the sectors listed in #industries. */
+  const why = $('[data-why]');
+  if (why) {
+    if (!reduceMotion.matches) {
+      const title = $('.why__title', why);
+      const words = title.textContent.trim().split(/\s+/);
+      title.replaceChildren(...words.flatMap((w, i) => {
+        const outer = document.createElement('span');
+        const inner = document.createElement('span');
+        outer.className = 'why__w';
+        inner.textContent = w;
+        inner.style.setProperty('--w', i);
+        outer.append(inner);
+        return i ? [' ', outer] : [outer];
+      }));
+    }
+
+    const stats = $('.wstats', why);
+    const ticks = $$('.dial__tick:not(.dial__tick--more)', why);
+    const counters = $$('[data-why-count]', why);
+    // Same timing as the dial's arc in CSS (500ms delay, 2400ms, ease-out).
+    const countUp = (el) => {
+      const target = Number(el.dataset.whyCount) || 0;
+      const isDial = !!el.closest('.dial');
+      const t0 = performance.now() + 500;
+      const step = (now) => {
+        const p = Math.min(Math.max((now - t0) / 2400, 0), 1);
+        const v = Math.round(target * (1 - Math.pow(1 - p, 4)));
+        el.textContent = v;
+        if (isDial) ticks.forEach((t, k) => t.classList.toggle('is-on', k < v));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    const segs = $$('.donut__seg', why);
+    const nameEl = $('[data-donut-name]', why);
+    const names = $$('#industries .industries__list li').map((li) => li.textContent.trim());
+    let seg = -1;
+    let segTimer = 0;
+    const nextSector = () => {
+      seg = (seg + 1) % segs.length;
+      segs.forEach((s, k) => s.classList.toggle('is-on', k === seg));
+      if (nameEl && names[seg]) {
+        nameEl.textContent = names[seg];
+        nameEl.classList.remove('is-swap');
+        void nameEl.offsetWidth; // restart the fade
+        nameEl.classList.add('is-swap');
+      }
+    };
+    const startSectors = (delay) => {
+      clearTimeout(segTimer);
+      segTimer = setTimeout(function loop() { nextSector(); segTimer = setTimeout(loop, 2400); }, delay);
+    };
+
+    if (reduceMotion.matches || !('IntersectionObserver' in window)) {
+      if (segs.length) nextSector();
+    } else {
+      counters.forEach((el) => { el.textContent = '0'; });
+      ticks.forEach((t) => t.classList.remove('is-on'));
+      let counted = false;
+      new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          if (!counted) { counted = true; counters.forEach(countUp); }
+          startSectors(seg < 0 ? 1900 : 600);
+        } else {
+          clearTimeout(segTimer);
+        }
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 }).observe(stats); // matches the reveal
+    }
+  }
+
   /* ---------- Mobile overlay menu ---------- */
   const menu = $('[data-menu]');
   const openBtn = $('[data-menu-open]');
@@ -332,6 +522,98 @@
   window.matchMedia('(min-width: 641px)').addEventListener('change', (mq) => {
     if (mq.matches && !menu.hidden) closeMenu({ restoreFocus: false });
   });
+
+  /* ---------- Services: photos + reversed-C slider ----------
+     Each card looks for its photo in assets/services/<slug>.webp|.jpg|.png
+     and keeps the silver placeholder if there isn't one. With motion
+     allowed, the cards glide along a reversed-C curve drawn to fit the
+     stage (CSS offset-path); the heading sits in the opening on desktop. */
+  const orbit = $('[data-orbit]');
+  if (orbit) {
+    const mediaEls = $$('[data-photo]', orbit);
+    const findPhoto = (media) => {
+      const exts = ['webp', 'jpg', 'png'];
+      const attempt = (i) => {
+        if (i >= exts.length) return;
+        const img = new Image();
+        img.alt = '';
+        img.decoding = 'async';
+        img.onload = () => { media.classList.add('has-photo'); media.prepend(img); };
+        img.onerror = () => attempt(i + 1);
+        img.src = `assets/services/${media.dataset.photo}.${exts[i]}`;
+      };
+      attempt(0);
+    };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries, obs) => {
+        if (entries.some((e) => e.isIntersecting)) { obs.disconnect(); mediaEls.forEach(findPhoto); }
+      }, { rootMargin: '600px 0px' }).observe(orbit);
+    } else mediaEls.forEach(findPhoto);
+
+    const canOrbit = !reduceMotion.matches && window.CSS && CSS.supports('offset-path', 'path("M0 0 L1 1")');
+    if (canOrbit) {
+      const stage = orbit.closest('.services__stage');
+      const items = $$('.cards > li', orbit);
+      const wide = window.matchMedia('(min-width: 1024px)');
+      const ARM = (desk) => ((desk ? 100 : 116) * Math.PI) / 180; // how far the C curls back at each tip
+      const layout = () => {
+        const W = orbit.clientWidth;
+        if (!W) return;
+        const desk = wide.matches;
+        const cardW = desk ? 280 : W >= 600 ? 200 : Math.round(Math.min(156, W * 0.42));
+        orbit.style.setProperty('--card-w', `${cardW}px`);
+        const cardH = Math.max(...items.map((li) => li.offsetHeight));
+        const H = desk ? 980 : W >= 600 ? 860 : 940;
+        const cx = W * (desk ? 0.45 : W >= 600 ? 0.32 : 0.27);
+        const cy = H / 2;
+        // Desktop: the outer curve sits mid-page, close to the heading.
+        const rx = Math.min(W - cx - cardW / 2 - 6, desk ? W * 0.34 : Infinity);
+        const ry = cy - cardH * 0.36 - 6;
+        const arm = ARM(desk);
+        const x1 = cx + rx * Math.cos(-arm);
+        const y1 = cy + ry * Math.sin(-arm);
+        const y2 = cy + ry * Math.sin(arm);
+        const f = (n) => n.toFixed(1);
+        orbit.style.setProperty('--orbit-h', `${H}px`);
+        orbit.style.setProperty('--orbit-dur', desk ? '56s' : '48s');
+        orbit.style.setProperty('--orbit-path', `path("M ${f(x1)} ${f(y1)} A ${f(rx)} ${f(ry)} 0 1 1 ${f(x1)} ${f(y2)}")`);
+      };
+      orbit.classList.add('is-on');
+      stage.classList.add('has-orbit');
+      layout();
+      if ('ResizeObserver' in window) new ResizeObserver(layout).observe(orbit);
+      else window.addEventListener('resize', layout);
+
+      const pauseBtn = $('[data-orbit-pause]', orbit);
+      const pauseLabel = $('[data-orbit-pause-label]', orbit);
+      pauseBtn.hidden = false;
+      pauseBtn.addEventListener('click', () => {
+        const paused = orbit.classList.toggle('is-paused');
+        pauseBtn.setAttribute('aria-pressed', String(paused));
+        pauseLabel.textContent = paused ? 'Play the services slider' : 'Pause the services slider';
+      });
+    }
+  }
+
+  /* ---------- Partner logos: endless slider below desktop ----------
+     Three copies of the logos are appended (hidden from screen readers,
+     keyboard and desktop) so the row can loop seamlessly; CSS moves it by
+     exactly one set (-25% of four). */
+  const plogos = $('.plogos');
+  if (plogos && !reduceMotion.matches) {
+    const originals = $$('.plogo', plogos);
+    for (let k = 0; k < 3; k++) {
+      originals.forEach((li) => {
+        const copy = li.cloneNode(true);
+        copy.dataset.clone = '';
+        copy.setAttribute('aria-hidden', 'true');
+        $$('a', copy).forEach((a) => { a.tabIndex = -1; });
+        $$('img', copy).forEach((img) => { img.loading = 'eager'; });
+        plogos.append(copy);
+      });
+    }
+    plogos.classList.add('is-looping');
+  }
 
   /* ---------- Reveals ---------- */
   $$('[data-reveal]').forEach((group) => {

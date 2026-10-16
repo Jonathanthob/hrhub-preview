@@ -28,7 +28,7 @@
   <link rel="preload" as="image" type="image/avif"
         imagesrcset="assets/img/hero-satin-sm.avif 768w, assets/img/hero-satin.avif 1536w" imagesizes="100vw" fetchpriority="high">
   <script src="assets/js/preview-api.js"></script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=79">
+  <link rel="stylesheet" href="assets/css/styles.css?v=122">
   <script>
     (function (d) {
       d.classList.add('js');
@@ -60,7 +60,7 @@
     "telephone": "+27 71 920 5340",
     "email": "info@hrhubconsultancy.co.za",
     "address": { "@type": "PostalAddress", "addressLocality": "Johannesburg", "addressCountry": "ZA" },
-    "founder": { "@type": "Person", "name": "Florence Malinga" },
+    "founder": { "@type": "Person", "name": "Florence Malinga", "image": "https://hrhubconsultancy.co.za/assets/img/florence-malinga.webp" },
     "openingHours": "Mo-Fr 08:00-17:00",
     "areaServed": { "@type": "Country", "name": "South Africa" }
   }
@@ -264,24 +264,63 @@
       </div>
     </section>
 
-    <section class="principles section" aria-labelledby="principles-title">
+    <section class="principles section" aria-labelledby="principles-title" data-motion>
+      
+      <div class="about-intro__bg" aria-hidden="true"><span class="about-intro__silk"></span></div>
       <div class="wrap">
         <header class="sec-head" data-reveal>
           <p class="eyebrow rv">How we work</p>
           <h2 class="h2 rv" id="principles-title">Practical HR. Proven results.</h2>
+          <p class="sec-head__lede rv">Three principles behind everything we do. <span class="pv__cue">Explore each one.</span></p>
         </header>
-        <ul class="principles__list" data-reveal>
-          <li class="principle rv">
-            <h3 class="principle__title">Compliance first</h3>
-            <p>Everything we do is framed around South African labour legislation, employment equity and skills development, with a focus on reducing risk and avoiding costly disputes.</p>
+        <ul class="pv" data-pv data-reveal>
+          <li class="pv__panel is-active" data-pv-panel>
+            <h3 class="pv__head">
+              <button class="pv__btn" type="button" id="pv-btn-compliance" aria-expanded="true" aria-controls="pv-body-compliance" data-pv-btn>
+                <span class="pv__num" aria-hidden="true">01</span>
+                <span class="pv__title">Compliance first</span>
+                <span class="pv__plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="pv__body" id="pv-body-compliance" role="region" aria-labelledby="pv-btn-compliance">
+              <div class="pv__inner">
+                <svg class="pv__icon" viewBox="0 0 120 120" aria-hidden="true"><path pathLength="1" d="M60 18v84M34 102h52M24 40h72M60 26l0 0"/><path pathLength="1" d="M24 40l-14 30h28zM96 40l-14 30h28z"/><path pathLength="1" d="M10 70a14 8 0 0 0 28 0M82 70a14 8 0 0 0 28 0"/></svg>
+                <p class="pv__text">Everything we do is framed around South African labour legislation, employment equity and skills development, with a focus on reducing risk and avoiding costly disputes.</p>
+                <ul class="pv__chips" aria-label="In short"><li>Labour legislation</li><li>Employment equity</li><li>Skills development</li></ul>
+              </div>
+            </div>
           </li>
-          <li class="principle rv">
-            <h3 class="principle__title">Practical, not theoretical</h3>
-            <p>Solutions sized to your industry and where your compliance stands today: advice you can act on, not a binder on a shelf.</p>
+          <li class="pv__panel" data-pv-panel>
+            <h3 class="pv__head">
+              <button class="pv__btn" type="button" id="pv-btn-practical" aria-expanded="false" aria-controls="pv-body-practical" data-pv-btn>
+                <span class="pv__num" aria-hidden="true">02</span>
+                <span class="pv__title">Practical, not theoretical</span>
+                <span class="pv__plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="pv__body" id="pv-body-practical" role="region" aria-labelledby="pv-btn-practical">
+              <div class="pv__inner">
+                <svg class="pv__icon" viewBox="0 0 120 120" aria-hidden="true"><path pathLength="1" d="M30 14h44l18 18v74H30z"/><path pathLength="1" d="M74 14v18h18"/><path pathLength="1" d="M44 70l12 12 22-26"/></svg>
+                <p class="pv__text">Solutions sized to your industry and where your compliance stands today: advice you can act on, not a binder on a shelf.</p>
+                <ul class="pv__chips" aria-label="In short"><li>Sized to your industry</li><li>Advice you can act on</li></ul>
+              </div>
+            </div>
           </li>
-          <li class="principle rv">
-            <h3 class="principle__title">One point of contact</h3>
-            <p>HR, industrial relations, training and employment equity through one relationship, so nothing falls between the cracks.</p>
+          <li class="pv__panel" data-pv-panel>
+            <h3 class="pv__head">
+              <button class="pv__btn" type="button" id="pv-btn-contact" aria-expanded="false" aria-controls="pv-body-contact" data-pv-btn>
+                <span class="pv__num" aria-hidden="true">03</span>
+                <span class="pv__title">One point of contact</span>
+                <span class="pv__plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="pv__body" id="pv-body-contact" role="region" aria-labelledby="pv-btn-contact">
+              <div class="pv__inner">
+                <svg class="pv__icon" viewBox="0 0 120 120" aria-hidden="true"><circle pathLength="1" cx="60" cy="60" r="12"/><path pathLength="1" d="M51 51L24 24M69 51l27-27M51 69L24 96M69 69l27 27"/><circle pathLength="1" cx="20" cy="20" r="7"/><circle pathLength="1" cx="100" cy="20" r="7"/><circle pathLength="1" cx="20" cy="100" r="7"/><circle pathLength="1" cx="100" cy="100" r="7"/></svg>
+                <p class="pv__text">HR, industrial relations, training and employment equity through one relationship, so nothing falls between the cracks.</p>
+                <ul class="pv__chips" aria-label="In short"><li>HR</li><li>Industrial relations</li><li>Training</li><li>Employment equity</li></ul>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -289,46 +328,96 @@
 
     <div class="rule wrap" aria-hidden="true"><span></span><svg viewBox="0 0 13 24" preserveAspectRatio="none"><path d="M0 24 L13 0"/></svg><span></span></div>
 
-    <section class="story section" aria-labelledby="story-title">
-      <div class="story__grid wrap">
-        <div data-reveal>
-          <p class="eyebrow rv">Our story</p>
-          <h2 class="h2 rv" id="story-title">Built by HR professionals.</h2>
-        </div>
-        <div class="story__body" data-reveal>
-          
-          <p class="body-lg rv" data-placeholder>HR Hub was formed by HR professionals with over 20 years of experience across multiple industries.</p>
-          <p class="rv">We bring that depth of experience to small and growing businesses that need expert HR support without carrying a full HR department.</p>
-
-        </div>
-      </div>
-    </section>
-
-    <section class="team section" aria-labelledby="team-title">
-      <div class="wrap">
-        <header class="sec-head" data-reveal>
-          <p class="eyebrow rv">Meet the team</p>
-          <h2 class="h2 rv" id="team-title">The people you’ll work with.</h2>
+    <section class="founder" id="founder" aria-labelledby="founder-title" data-founder data-motion>
+      
+      <div class="founder__bg" aria-hidden="true"><span class="founder__satin"></span></div>
+      <div class="founder__wrap wrap">
+        <header class="founder__head" data-reveal>
+          <p class="eyebrow eyebrow--light rv">Meet the founder</p>
+          <h2 class="founder__name rv" id="founder-title">Florence Malinga</h2>
+          <p class="founder__role rv">Founder, HR Hub Consultancy <span aria-hidden="true">·</span> Johannesburg</p>
         </header>
-        <ul class="team__grid" data-reveal>
-          <li class="person rv">
-            
-            <div class="person__portrait" aria-hidden="true"><span>FM</span></div>
-            <div class="person__body">
-              <h3 class="person__name">Florence Malinga</h3>
-              <p class="person__role">Founder</p>
 
-            </div>
-          </li>
-          <li class="person rv">
-            
-            <div class="person__portrait" aria-hidden="true"><span>ZT</span></div>
-            <div class="person__body">
-              <h3 class="person__name">Zamaswazi Tshabalala</h3>
+        <div class="founder__grid">
+          <div class="founder__media" data-reveal>
+            <figure class="founder__card" data-tilt>
+              <div class="founder__arch">
+                <div class="founder__portrait">
+                  <picture>
+                    <source type="image/avif" srcset="assets/img/florence-malinga-sm.avif 480w, assets/img/florence-malinga.avif 800w" sizes="(min-width: 1024px) 400px, min(calc(100vw - 40px), 400px)">
+                    <source type="image/webp" srcset="assets/img/florence-malinga-sm.webp 480w, assets/img/florence-malinga.webp 800w" sizes="(min-width: 1024px) 400px, min(calc(100vw - 40px), 400px)">
+                    <img src="assets/img/florence-malinga.webp" width="800" height="1000" alt="Florence Malinga, founder of HR Hub Consultancy" loading="lazy" decoding="async">
+                  </picture>
+                </div>
+                <span class="founder__sheen" aria-hidden="true"></span>
+              </div>
+            </figure>
+          </div>
 
+          <div class="founder__body">
+            <p class="founder__lead" data-reveal><span class="rv">Florence founded HR Hub Consultancy to give growing South African businesses expert HR support that keeps them compliant, and their people on side.</span></p>
+
+            <dl class="founder__stats" data-count-group>
+              <div class="stat">
+                <dt class="stat__label">Years of HR experience</dt>
+                
+                <dd class="stat__value"><span class="stat__num" data-count="20">20</span><span class="stat__suffix">+</span></dd>
+              </div>
+              <div class="stat">
+                <dt class="stat__label">Companies supported</dt>
+                
+                <dd class="stat__value"><span class="stat__num" data-count="10">10</span></dd>
+              </div>
+              <div class="stat">
+                <dt class="stat__label">Specialist areas</dt>
+                <dd class="stat__value"><span class="stat__num" data-count="4">4</span></dd>
+              </div>
+            </dl>
+
+            <div class="founder__expertise">
+              <p class="founder__sub">Areas of expertise</p>
+              <ul class="fx">
+            <li class="fx__item">
+              <button class="fx__row" type="button" aria-expanded="false" data-fx>
+                <span class="fx__num" aria-hidden="true">01</span>
+                <span class="fx__title">Industrial relations</span>
+                <span class="fx__arrow" aria-hidden="true"></span>
+              </button>
+              <div class="fx__detail"><div class="fx__panel"><ul class="fx__points"><li>Disciplinary hearings</li><li>Grievance handling</li><li>CCMA representation</li><li>Dispute resolution</li></ul></div></div>
+            </li>
+            <li class="fx__item">
+              <button class="fx__row" type="button" aria-expanded="false" data-fx>
+                <span class="fx__num" aria-hidden="true">02</span>
+                <span class="fx__title">HR compliance</span>
+                <span class="fx__arrow" aria-hidden="true"></span>
+              </button>
+              <div class="fx__detail"><div class="fx__panel"><ul class="fx__points"><li>HR policies and procedures</li><li>Employment contracts</li><li>Compliance audits</li><li>A clear plan to fix the gaps</li></ul></div></div>
+            </li>
+            <li class="fx__item">
+              <button class="fx__row" type="button" aria-expanded="false" data-fx>
+                <span class="fx__num" aria-hidden="true">03</span>
+                <span class="fx__title">Employment equity</span>
+                <span class="fx__arrow" aria-hidden="true"></span>
+              </button>
+              <div class="fx__detail"><div class="fx__panel"><ul class="fx__points"><li>EE plans and reports</li><li>EE committee support</li><li>Department of Labour submissions</li></ul></div></div>
+            </li>
+            <li class="fx__item">
+              <button class="fx__row" type="button" aria-expanded="false" data-fx>
+                <span class="fx__num" aria-hidden="true">04</span>
+                <span class="fx__title">Training &amp; development</span>
+                <span class="fx__arrow" aria-hidden="true"></span>
+              </button>
+              <div class="fx__detail"><div class="fx__panel"><ul class="fx__points"><li>Management training</li><li>Labour-relations training</li><li>Workplace-compliance training</li><li>Custom in-house workshops</li></ul></div></div>
+            </li>
+              </ul>
             </div>
-          </li>
-        </ul>
+
+            <div class="founder__actions">
+              <a class="btn btn--light hero__btn" href="#contact" data-booking-open data-source="unknown" aria-haspopup="dialog">Book a consultation</a>
+              <a class="btn hero__btn hero__btn--glass" href="#contact" data-enquiry>Send an enquiry</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -340,122 +429,176 @@
           <h2 class="h2 rv" id="partners-title">Trusted specialists, one relationship.</h2>
         </header>
         
-        <ul class="partners__grid" data-reveal>
-          <li class="partner rv">
-            <p class="partner__area">Employee wellbeing</p>
-            <h3 class="partner__name">Siweya Wellness Solutions</h3>
-            <p>Counselling, mental-health, financial and family wellness programmes, aligned with your HR support.</p>
-            <a class="partner__link" href="https://siweyawellness.co.za" target="_blank" rel="noopener">siweyawellness.co.za<span class="sr-only"> (opens in a new tab)</span></a>
-          </li>
-          <li class="partner rv">
-            <p class="partner__area">Recruitment</p>
-            <h3 class="partner__name">Express Employment Professionals</h3>
-            <p>An international staffing network, in South Africa since 1998, for when you need to hire.</p>
-          </li>
-        </ul>
+        <div class="plogos__rail">
+          <ul class="plogos" data-reveal>
+            <li class="plogo rv">
+              <a href="https://siweyawellness.co.za" target="_blank" rel="noopener" class="plogo__link"><picture><source type="image/webp" srcset="assets/partners/siweya-wellness-solutions.webp"><img src="assets/partners/siweya-wellness-solutions.png" alt="Siweya Wellness Solutions" loading="lazy" decoding="async"></picture><span class="sr-only"> (opens in a new tab)</span></a>
+              <span class="sr-only">Employee wellbeing: counselling, mental-health, financial and family wellness programmes.</span>
+            </li>
+            <li class="plogo rv">
+              <picture><source type="image/webp" srcset="assets/partners/express-employment-professionals.webp"><img src="assets/partners/express-employment-professionals.png" alt="Express Employment Professionals" loading="lazy" decoding="async"></picture>
+              <span class="sr-only">Recruitment: an international staffing network, in South Africa since 1998.</span>
+            </li>
+            
+          </ul>
+        </div>
       </div>
     </section>
 
-    <section class="why section" aria-labelledby="why-title">
+    <section class="why section" aria-labelledby="why-title" data-why data-motion>
+      <div class="why__stage" aria-hidden="true">
+        <span class="why__beam"></span>
+        <span class="why__ghost">Why us</span>
+      </div>
       <div class="why__grid wrap">
-        <div data-reveal>
+        <div class="why__head" data-reveal>
           <p class="eyebrow rv">Why businesses choose us</p>
-          <h2 class="h2 rv" id="why-title">Hands-on HR, from shop floor to boardroom.</h2>
+          <h2 class="h2 why__title" id="why-title">Hands-on HR, from shop floor to boardroom.</h2>
         </div>
-        <ul class="why__list" data-reveal>
-          
-          <li class="rv" data-placeholder><span class="trust__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Over 20 years of hands-on HR experience, not just theory.</li>
-          <li class="rv"><span class="trust__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A compliance-first approach that reduces risk and costly disputes.</li>
-          <li class="rv"><span class="trust__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Experience across multiple industries.</li>
-          <li class="rv"><span class="trust__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>One point of contact for HR, industrial relations, training and employment equity.</li>
+        
+        <ul class="wstats" data-reveal>
+          <li class="wstat wstat--years" data-placeholder>
+            <div class="dial" aria-hidden="true">
+              <svg class="dial__svg" viewBox="0 0 200 200">
+                <path class="dial__track" d="M40.6 159.4 A84 84 0 1 1 159.4 159.4" pathLength="1"/>
+                <path class="dial__arc" d="M40.6 159.4 A84 84 0 1 1 159.4 159.4" pathLength="1"/>
+                <g class="dial__ticks"><line class="dial__tick is-on" x1="51.9" y1="148.1" x2="43.4" y2="156.6"/><line class="dial__tick is-on" x1="40.6" y1="138.9" x2="33.9" y2="143.3"/><line class="dial__tick is-on" x1="34" y1="126" x2="26.5" y2="129"/><line class="dial__tick is-on" x1="30" y1="112.1" x2="22.1" y2="113.4"/><line class="dial__tick is-on" x1="29" y1="97.6" x2="21" y2="97.3"/><line class="dial__tick is-on" x1="33.9" y1="83.9" x2="22.3" y2="81.1"/><line class="dial__tick is-on" x1="35.9" y1="69.5" x2="28.7" y2="66.1"/><line class="dial__tick is-on" x1="43.4" y1="57.1" x2="37.1" y2="52.3"/><line class="dial__tick is-on" x1="53.3" y1="46.5" x2="48.1" y2="40.5"/><line class="dial__tick is-on" x1="65.2" y1="38.1" x2="61.3" y2="31.1"/><line class="dial__tick is-on" x1="79.4" y1="35.2" x2="75.8" y2="23.7"/><line class="dial__tick is-on" x1="92.7" y1="29.4" x2="91.9" y2="21.4"/><line class="dial__tick is-on" x1="107.3" y1="29.4" x2="108.1" y2="21.4"/><line class="dial__tick is-on" x1="121.5" y1="32.3" x2="123.9" y2="24.7"/><line class="dial__tick is-on" x1="134.8" y1="38.1" x2="138.7" y2="31.1"/><line class="dial__tick is-on" x1="144.7" y1="48.7" x2="152.6" y2="39.7"/><line class="dial__tick is-on" x1="156.6" y1="57.1" x2="162.9" y2="52.3"/><line class="dial__tick is-on" x1="164.1" y1="69.5" x2="171.3" y2="66.1"/><line class="dial__tick is-on" x1="169" y1="83.2" x2="176.8" y2="81.3"/><line class="dial__tick is-on" x1="171" y1="97.6" x2="179" y2="97.3"/><line class="dial__tick dial__tick--more" x1="167" y1="111.6" x2="178.8" y2="113.6"/><line class="dial__tick dial__tick--more" x1="166" y1="126" x2="173.5" y2="129"/><line class="dial__tick dial__tick--more" x1="159.4" y1="138.9" x2="166.1" y2="143.3"/><line class="dial__tick dial__tick--more" x1="150.2" y1="150.2" x2="155.9" y2="155.9"/></g>
+              </svg>
+              <p class="dial__fig"><span data-why-count="20">20</span><span class="dial__plus">+</span></p>
+              <p class="dial__unit">years</p>
+            </div>
+            <p class="wstat__label">Hands-on experience</p>
+            <p class="wstat__text">Over 20 years of hands-on HR experience, not just theory.</p>
+          </li>
+          <li class="wstat wstat--first">
+            <p class="wstat__fig" aria-hidden="true">1<span class="wstat__sup">st</span></p>
+            <div class="queue" aria-hidden="true"><span class="queue__lead"><svg viewBox="0 0 16 16" width="16" height="16"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <p class="wstat__label">Compliance comes first</p>
+            <p class="wstat__text">A compliance-first approach that reduces risk and costly disputes.</p>
+          </li>
+          <li class="wstat wstat--ind">
+            <div class="donut" aria-hidden="true">
+              <svg class="donut__svg" viewBox="0 0 120 120"><circle class="donut__seg" style="--s:0" cx="60" cy="60" r="50" pathLength="600" stroke-dasharray="92 508" stroke-dashoffset="0"/><circle class="donut__seg" style="--s:1" cx="60" cy="60" r="50" pathLength="600" stroke-dasharray="92 508" stroke-dashoffset="-100"/><circle class="donut__seg" style="--s:2" cx="60" cy="60" r="50" pathLength="600" stroke-dasharray="92 508" stroke-dashoffset="-200"/><circle class="donut__seg" style="--s:3" cx="60" cy="60" r="50" pathLength="600" stroke-dasharray="92 508" stroke-dashoffset="-300"/><circle class="donut__seg" style="--s:4" cx="60" cy="60" r="50" pathLength="600" stroke-dasharray="92 508" stroke-dashoffset="-400"/><circle class="donut__seg" style="--s:5" cx="60" cy="60" r="50" pathLength="600" stroke-dasharray="92 508" stroke-dashoffset="-500"/></svg>
+              <p class="donut__fig"><span data-why-count="6">6</span></p>
+            </div>
+            <p class="donut__name" aria-hidden="true" data-donut-name>Manufacturing &amp; Engineering</p>
+            <p class="wstat__label">Industries</p>
+            <p class="wstat__text">Experience across multiple industries.</p>
+          </li>
+          <li class="wstat wstat--one">
+            <div class="conv" aria-hidden="true">
+              <ul class="conv__from"><li>HR</li><li>Industrial relations</li><li>Training</li><li>Employment equity</li></ul>
+              <span class="conv__wire"><svg class="conv__lines" viewBox="0 0 300 200" preserveAspectRatio="none"><g class="conv__base"><path d="M0 25 C 165 25, 135 100, 300 100" pathLength="1" style="--l:0"/><path d="M0 75 C 165 75, 135 100, 300 100" pathLength="1" style="--l:1"/><path d="M0 125 C 165 125, 135 100, 300 100" pathLength="1" style="--l:2"/><path d="M0 175 C 165 175, 135 100, 300 100" pathLength="1" style="--l:3"/></g><g class="conv__pulse"><path d="M0 25 C 165 25, 135 100, 300 100" pathLength="1" style="--l:0"/><path d="M0 75 C 165 75, 135 100, 300 100" pathLength="1" style="--l:1"/><path d="M0 125 C 165 125, 135 100, 300 100" pathLength="1" style="--l:2"/><path d="M0 175 C 165 175, 135 100, 300 100" pathLength="1" style="--l:3"/></g></svg></span>
+              <div class="conv__node"><span>1</span></div>
+            </div>
+            <p class="wstat__label">Point of contact</p>
+            <p class="wstat__text">One point of contact for HR, industrial relations, training and employment equity.</p>
+          </li>
         </ul>
       </div>
     </section>
 
     <div class="rule wrap" aria-hidden="true"><span></span><svg viewBox="0 0 13 24" preserveAspectRatio="none"><path d="M0 24 L13 0"/></svg><span></span></div>
 
-    <section class="services section" id="services" aria-labelledby="services-title">
-      <div class="wrap">
+    <section class="services section" id="services" aria-labelledby="services-title" data-motion>
+      
+      <div class="about-intro__bg" aria-hidden="true"><span class="about-intro__silk"></span></div>
+      <div class="services__stage wrap">
         <header class="sec-head" data-reveal>
           <p class="eyebrow rv">Services</p>
           <h2 class="h2 rv" id="services-title">What we take care of.</h2>
           <p class="sec-head__lede rv">Practical HR support, delivered by people who know South African labour law.</p>
         </header>
 
-        <ul class="cards">
-          <li>
+        <div class="orbit" data-orbit>
+          <ul class="cards" data-reveal>
+          <li style="--i:0">
             <a class="card" href="?topic=hr-compliance#contact" data-enquiry-topic="hr-compliance">
-              <span class="card__num" aria-hidden="true">01</span>
-              <h3 class="card__title">HR Compliance</h3>
-              <p class="card__copy">Keep your policies and practices in line with South African labour law.</p>
-              <span class="card__ask">Ask about this</span>
+              <div class="card__media" data-photo="hr-compliance" aria-hidden="true"><span class="card__num">01</span></div>
+              <div class="card__body">
+                <h3 class="card__title">HR Compliance</h3>
+                <p class="card__copy">Keep your policies and practices in line with South African labour law.</p>
+              </div>
               <span class="card__arrow" aria-hidden="true">→</span>
             </a>
           </li>
-          <li>
+          <li style="--i:1">
             <a class="card" href="?topic=employee-relations#contact" data-enquiry-topic="employee-relations">
-              <span class="card__num" aria-hidden="true">02</span>
-              <h3 class="card__title">Employee Relations &amp; Disciplinary Support</h3>
-              <p class="card__copy">Clear guidance through hearings, grievances and incapacity matters.</p>
-              <span class="card__ask">Ask about this</span>
+              <div class="card__media" data-photo="employee-relations" aria-hidden="true"><span class="card__num">02</span></div>
+              <div class="card__body">
+                <h3 class="card__title">Employee Relations &amp; Disciplinary Support</h3>
+                <p class="card__copy">Clear guidance through hearings, grievances and incapacity matters.</p>
+              </div>
               <span class="card__arrow" aria-hidden="true">→</span>
             </a>
           </li>
-          <li>
+          <li style="--i:2">
             <a class="card" href="?topic=ccma#contact" data-enquiry-topic="ccma">
-              <span class="card__num" aria-hidden="true">03</span>
-              <h3 class="card__title">CCMA Representation</h3>
-              <p class="card__copy">Preparation and representation at conciliation and arbitration.</p>
-              <span class="card__ask">Ask about this</span>
+              <div class="card__media" data-photo="ccma" aria-hidden="true"><span class="card__num">03</span></div>
+              <div class="card__body">
+                <h3 class="card__title">CCMA Representation</h3>
+                <p class="card__copy">Preparation and representation at conciliation and arbitration.</p>
+              </div>
               <span class="card__arrow" aria-hidden="true">→</span>
             </a>
           </li>
-          <li>
+          <li style="--i:3">
             <a class="card" href="?topic=employment-equity#contact" data-enquiry-topic="employment-equity">
-              <span class="card__num" aria-hidden="true">04</span>
-              <h3 class="card__title">Employment Equity</h3>
-              <p class="card__copy">EE plans, committees and reports, done properly and on time.</p>
-              <span class="card__ask">Ask about this</span>
+              <div class="card__media" data-photo="employment-equity" aria-hidden="true"><span class="card__num">04</span></div>
+              <div class="card__body">
+                <h3 class="card__title">Employment Equity</h3>
+                <p class="card__copy">EE plans, committees and reports, done properly and on time.</p>
+              </div>
               <span class="card__arrow" aria-hidden="true">→</span>
             </a>
           </li>
-          <li>
+          <li style="--i:4">
             <a class="card" href="?topic=training#contact" data-enquiry-topic="training">
-              <span class="card__num" aria-hidden="true">05</span>
-              <h3 class="card__title">Training &amp; Development</h3>
-              <p class="card__copy">Practical training that helps managers and teams handle people matters well.</p>
-              <span class="card__ask">Ask about this</span>
+              <div class="card__media" data-photo="training" aria-hidden="true"><span class="card__num">05</span></div>
+              <div class="card__body">
+                <h3 class="card__title">Training &amp; Development</h3>
+                <p class="card__copy">Practical training that helps managers and teams handle people matters well.</p>
+              </div>
               <span class="card__arrow" aria-hidden="true">→</span>
             </a>
           </li>
-          <li>
+          <li style="--i:5">
             <a class="card" href="?topic=policies-contracts#contact" data-enquiry-topic="policies-contracts">
-              <span class="card__num" aria-hidden="true">06</span>
-              <h3 class="card__title">Policies &amp; Contracts</h3>
-              <p class="card__copy">Employment contracts and workplace policies written for your business.</p>
-              <span class="card__ask">Ask about this</span>
+              <div class="card__media" data-photo="policies-contracts" aria-hidden="true"><span class="card__num">06</span></div>
+              <div class="card__body">
+                <h3 class="card__title">Policies &amp; Contracts</h3>
+                <p class="card__copy">Employment contracts and workplace policies written for your business.</p>
+              </div>
               <span class="card__arrow" aria-hidden="true">→</span>
             </a>
           </li>
-          <li>
+          <li style="--i:6">
             <a class="card" href="?topic=hr-advisory#contact" data-enquiry-topic="hr-advisory">
-              <span class="card__num" aria-hidden="true">07</span>
-              <h3 class="card__title">HR Advisory</h3>
-              <p class="card__copy">Straight answers to day-to-day people questions, when you need them.</p>
-              <span class="card__ask">Ask about this</span>
+              <div class="card__media" data-photo="hr-advisory" aria-hidden="true"><span class="card__num">07</span></div>
+              <div class="card__body">
+                <h3 class="card__title">HR Advisory</h3>
+                <p class="card__copy">Straight answers to day-to-day people questions, when you need them.</p>
+              </div>
               <span class="card__arrow" aria-hidden="true">→</span>
             </a>
           </li>
-          <li>
+          <li style="--i:7">
             <a class="card" href="?topic=health-check#contact" data-enquiry-topic="health-check">
-              <span class="card__num" aria-hidden="true">08</span>
-              <h3 class="card__title">HR Compliance Health Check</h3>
-              <p class="card__copy">A structured review of where your HR stands, with clear next steps.</p>
-              <span class="card__ask">Ask about this</span>
+              <div class="card__media" data-photo="health-check" aria-hidden="true"><span class="card__num">08</span></div>
+              <div class="card__body">
+                <h3 class="card__title">HR Compliance Health Check</h3>
+                <p class="card__copy">A structured review of where your HR stands, with clear next steps.</p>
+              </div>
               <span class="card__arrow" aria-hidden="true">→</span>
             </a>
           </li>
-        </ul>
+          </ul>
+          <button class="orbit__pause" type="button" data-orbit-pause aria-pressed="false" hidden>
+            <svg class="billboard__icon billboard__icon--pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 4v8M10.5 4v8"/></svg>
+            <svg class="billboard__icon billboard__icon--play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 3.5l7 4.5-7 4.5z"/></svg>
+            <span class="sr-only" data-orbit-pause-label>Pause the services slider</span>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -993,7 +1136,7 @@
     </aside>
   </div>
 
-  <script src="assets/js/main.js?v=79" defer></script>
+  <script src="assets/js/main.js?v=122" defer></script>
 
 <div class="preview-banner" role="note">Preview site · work in progress · forms are not live yet</div>
 <style>

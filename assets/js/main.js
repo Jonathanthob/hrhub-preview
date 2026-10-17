@@ -440,7 +440,7 @@
 
     const segs = $$('.donut__seg', why);
     const nameEl = $('[data-donut-name]', why);
-    const names = $$('#industries .industries__list li').map((li) => li.textContent.trim());
+    const names = $$('#industries .ind__name').map((el) => el.textContent.trim());
     let seg = -1;
     let segTimer = 0;
     const nextSector = () => {
@@ -523,11 +523,85 @@
     if (mq.matches && !menu.hidden) closeMenu({ restoreFocus: false });
   });
 
+  /* ---------- Final CTA: motion-graphic scene ----------
+     Runs its CSS timeline each time it comes (back) into view; a replay
+     button appears when it finishes. With reduced motion the final frame
+     simply shows. */
+  const film = $('[data-film]');
+  if (film && !reduceMotion.matches && 'IntersectionObserver' in window) {
+    const replayBtn = $('[data-film-replay]', film);
+    let doneTimer = 0;
+    let played = false;
+    film.classList.add('film-armed');
+    const play = () => {
+      clearTimeout(doneTimer);
+      film.classList.remove('is-playing', 'is-done');
+      replayBtn.hidden = true;
+      void film.offsetWidth; // restart the CSS timeline
+      film.classList.add('is-playing');
+      doneTimer = setTimeout(() => {
+        film.classList.add('is-done');
+        replayBtn.hidden = false;
+      }, 5600);
+    };
+    replayBtn.addEventListener('click', play);
+    new IntersectionObserver(([entry]) => {
+      if (entry.intersectionRatio >= 0.45 && !played) { played = true; play(); }
+      else if (entry.intersectionRatio === 0) played = false; // play again on the way back
+    }, { threshold: [0, 0.45] }).observe(film);
+  }
+
+  /* ---------- Industries: moving spotlight + pointer light ----------
+     While the tiles are on screen a spotlight steps from tile to tile;
+     hovering a tile takes over (the light follows the pointer) and the
+     cycle resumes when the pointer leaves the grid. */
+  const industries = $('[data-industries]');
+  if (industries) {
+    const grid = $('.ind__grid', industries);
+    const tiles = $$('.ind', grid);
+    let lit = -1;
+    let timer = 0;
+    let hovering = false;
+    let visible = false;
+    const light = (i) => {
+      lit = i;
+      tiles.forEach((t, k) => t.classList.toggle('is-lit', k === i));
+    };
+    const stop = () => { clearTimeout(timer); timer = 0; };
+    const cycle = (delay) => {
+      stop();
+      if (reduceMotion.matches || hovering || !visible) return;
+      timer = setTimeout(() => { light((lit + 1) % tiles.length); cycle(2600); }, delay);
+    };
+    tiles.forEach((tile, i) => {
+      tile.addEventListener('pointerenter', () => { hovering = true; stop(); light(i); });
+      tile.addEventListener('pointermove', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        const r = tile.getBoundingClientRect();
+        tile.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        tile.style.setProperty('--my', `${e.clientY - r.top}px`);
+      });
+    });
+    grid.addEventListener('pointerleave', () => {
+      hovering = false;
+      tiles.forEach((t) => { t.style.removeProperty('--mx'); t.style.removeProperty('--my'); });
+      cycle(1800);
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) cycle(lit < 0 ? 2200 : 900);
+        else stop();
+      }, { threshold: 0.3 }).observe(grid);
+    }
+  }
+
   /* ---------- Services: photos + reversed-C slider ----------
      Each card looks for its photo in assets/services/<slug>.webp|.jpg|.png
      and keeps the silver placeholder if there isn't one. With motion
-     allowed, the cards glide along a reversed-C curve drawn to fit the
-     stage (CSS offset-path); the heading sits in the opening on desktop. */
+     allowed, the cards climb in a loop one slot apart (so they never
+     touch), each following a reversed-C curve sideways; four show at a
+     time. The heading sits in the opening on desktop. */
   const orbit = $('[data-orbit]');
   if (orbit) {
     const mediaEls = $$('[data-photo]', orbit);
@@ -550,33 +624,43 @@
       }, { rootMargin: '600px 0px' }).observe(orbit);
     } else mediaEls.forEach(findPhoto);
 
-    const canOrbit = !reduceMotion.matches && window.CSS && CSS.supports('offset-path', 'path("M0 0 L1 1")');
+    const canOrbit = !reduceMotion.matches && window.CSS && CSS.supports('translate', '1px 1px');
     if (canOrbit) {
       const stage = orbit.closest('.services__stage');
       const items = $$('.cards > li', orbit);
       const wide = window.matchMedia('(min-width: 1024px)');
-      const ARM = (desk) => ((desk ? 100 : 116) * Math.PI) / 180; // how far the C curls back at each tip
       const layout = () => {
         const W = orbit.clientWidth;
         if (!W) return;
         const desk = wide.matches;
-        const cardW = desk ? 280 : W >= 600 ? 200 : Math.round(Math.min(156, W * 0.42));
-        orbit.style.setProperty('--card-w', `${cardW}px`);
-        const cardH = Math.max(...items.map((li) => li.offsetHeight));
-        const H = desk ? 980 : W >= 600 ? 860 : 940;
-        const cx = W * (desk ? 0.45 : W >= 600 ? 0.32 : 0.27);
-        const cy = H / 2;
-        // Desktop: the outer curve sits mid-page, close to the heading.
-        const rx = Math.min(W - cx - cardW / 2 - 6, desk ? W * 0.34 : Infinity);
-        const ry = cy - cardH * 0.36 - 6;
-        const arm = ARM(desk);
-        const x1 = cx + rx * Math.cos(-arm);
-        const y1 = cy + ry * Math.sin(-arm);
-        const y2 = cy + ry * Math.sin(arm);
-        const f = (n) => n.toFixed(1);
-        orbit.style.setProperty('--orbit-h', `${H}px`);
-        orbit.style.setProperty('--orbit-dur', desk ? '56s' : '48s');
-        orbit.style.setProperty('--orbit-path', `path("M ${f(x1)} ${f(y1)} A ${f(rx)} ${f(ry)} 0 1 1 ${f(x1)} ${f(y2)}")`);
+        const tab = !desk && W >= 600;
+        // Card height + gap = one slot; the stage is four slots tall.
+        const ch = desk ? 156 : tab ? 150 : 124;
+        const S = ch + (desk ? 16 : 12);
+        let x0;
+        let cw;
+        let A;
+        if (desk) {
+          x0 = W * 0.37; // tips of the C, just right of the heading
+          cw = Math.min(500, W - x0 - 40);
+          A = Math.min(260, W - x0 - cw - 4);
+        } else if (tab) {
+          x0 = 0;
+          cw = Math.min(460, W * 0.66);
+          A = Math.min(200, W - cw - 4);
+        } else {
+          x0 = 0;
+          cw = W - 36;
+          A = 32;
+        }
+        const px = (n) => `${Math.round(n)}px`;
+        orbit.style.setProperty('--x0', px(x0));
+        orbit.style.setProperty('--A', px(A));
+        orbit.style.setProperty('--cw', px(cw));
+        orbit.style.setProperty('--ch', px(ch));
+        orbit.style.setProperty('--S', px(S));
+        orbit.style.setProperty('--orbit-h', px(S * 4));
+        orbit.style.setProperty('--orbit-dur', desk ? '46s' : '40s');
       };
       orbit.classList.add('is-on');
       stage.classList.add('has-orbit');
@@ -1252,6 +1336,9 @@
       const el = document.getElementById(id);
       if (el) el.textContent = msg;
       if (field) field.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      // A field folded inside "Add more detail" opens its drawer when it has an error.
+      const drawer = msg && field && field.closest('details');
+      if (drawer && !drawer.open) drawer.open = true;
       return !msg;
     }
 

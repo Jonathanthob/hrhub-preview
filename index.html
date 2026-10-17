@@ -28,7 +28,7 @@
   <link rel="preload" as="image" type="image/avif"
         imagesrcset="assets/img/hero-satin-sm.avif 768w, assets/img/hero-satin.avif 1536w" imagesizes="100vw" fetchpriority="high">
   <script src="assets/js/preview-api.js"></script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=122">
+  <link rel="stylesheet" href="assets/css/styles.css?v=141">
   <script>
     (function (d) {
       d.classList.add('js');
@@ -421,34 +421,164 @@
       </div>
     </section>
 
-    <section class="trust trust--partners" aria-labelledby="partners-title" data-motion>
-      <div class="trust__silk" aria-hidden="true"></div>
-      <div class="trust__inner wrap">
-        <header class="partners__head" data-reveal>
-          <p class="eyebrow rv">Our partners</p>
-          <h2 class="h2 rv" id="partners-title">Trusted specialists, one relationship.</h2>
+    <section class="services section" id="services" aria-labelledby="services-title" data-motion>
+      
+      <div class="about-intro__bg" aria-hidden="true"><span class="about-intro__silk"></span></div>
+      <div class="services__stage wrap">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow rv">Services</p>
+          <h2 class="h2 rv" id="services-title">What we take care of.</h2>
+          <p class="sec-head__lede rv">Practical HR support, delivered by people who know South African labour law.</p>
         </header>
-        
-        <div class="plogos__rail">
-          <ul class="plogos" data-reveal>
-            <li class="plogo rv">
-              <a href="https://siweyawellness.co.za" target="_blank" rel="noopener" class="plogo__link"><picture><source type="image/webp" srcset="assets/partners/siweya-wellness-solutions.webp"><img src="assets/partners/siweya-wellness-solutions.png" alt="Siweya Wellness Solutions" loading="lazy" decoding="async"></picture><span class="sr-only"> (opens in a new tab)</span></a>
-              <span class="sr-only">Employee wellbeing: counselling, mental-health, financial and family wellness programmes.</span>
-            </li>
-            <li class="plogo rv">
-              <picture><source type="image/webp" srcset="assets/partners/express-employment-professionals.webp"><img src="assets/partners/express-employment-professionals.png" alt="Express Employment Professionals" loading="lazy" decoding="async"></picture>
-              <span class="sr-only">Recruitment: an international staffing network, in South Africa since 1998.</span>
-            </li>
-            
+
+        <div class="orbit" data-orbit>
+          <ul class="cards" data-reveal>
+          <li style="--i:0; --d:0.500">
+            <a class="card" href="?topic=hr-compliance#contact" data-enquiry-topic="hr-compliance">
+              <div class="card__media" data-photo="hr-compliance" aria-hidden="true"><span class="card__num">01</span></div>
+              <div class="card__body">
+                <h3 class="card__title">HR Compliance</h3>
+                <p class="card__copy">Keep your policies and practices in line with South African labour law.</p>
+              </div>
+              <span class="card__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li style="--i:1; --d:0.375">
+            <a class="card" href="?topic=employee-relations#contact" data-enquiry-topic="employee-relations">
+              <div class="card__media" data-photo="employee-relations" aria-hidden="true"><span class="card__num">02</span></div>
+              <div class="card__body">
+                <h3 class="card__title">Employee Relations &amp; Disciplinary Support</h3>
+                <p class="card__copy">Clear guidance through hearings, grievances and incapacity matters.</p>
+              </div>
+              <span class="card__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li style="--i:2; --d:0.250">
+            <a class="card" href="?topic=ccma#contact" data-enquiry-topic="ccma">
+              <div class="card__media" data-photo="ccma" aria-hidden="true"><span class="card__num">03</span></div>
+              <div class="card__body">
+                <h3 class="card__title">CCMA Representation</h3>
+                <p class="card__copy">Preparation and representation at conciliation and arbitration.</p>
+              </div>
+              <span class="card__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li style="--i:3; --d:0.125">
+            <a class="card" href="?topic=employment-equity#contact" data-enquiry-topic="employment-equity">
+              <div class="card__media" data-photo="employment-equity" aria-hidden="true"><span class="card__num">04</span></div>
+              <div class="card__body">
+                <h3 class="card__title">Employment Equity</h3>
+                <p class="card__copy">EE plans, committees and reports, done properly and on time.</p>
+              </div>
+              <span class="card__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li style="--i:4; --d:0.000">
+            <a class="card" href="?topic=training#contact" data-enquiry-topic="training">
+              <div class="card__media" data-photo="training" aria-hidden="true"><span class="card__num">05</span></div>
+              <div class="card__body">
+                <h3 class="card__title">Training &amp; Development</h3>
+                <p class="card__copy">Practical training that helps managers and teams handle people matters well.</p>
+              </div>
+              <span class="card__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li style="--i:5; --d:0.875">
+            <a class="card" href="?topic=policies-contracts#contact" data-enquiry-topic="policies-contracts">
+              <div class="card__media" data-photo="policies-contracts" aria-hidden="true"><span class="card__num">06</span></div>
+              <div class="card__body">
+                <h3 class="card__title">Policies &amp; Contracts</h3>
+                <p class="card__copy">Employment contracts and workplace policies written for your business.</p>
+              </div>
+              <span class="card__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li style="--i:6; --d:0.750">
+            <a class="card" href="?topic=hr-advisory#contact" data-enquiry-topic="hr-advisory">
+              <div class="card__media" data-photo="hr-advisory" aria-hidden="true"><span class="card__num">07</span></div>
+              <div class="card__body">
+                <h3 class="card__title">HR Advisory</h3>
+                <p class="card__copy">Straight answers to day-to-day people questions, when you need them.</p>
+              </div>
+              <span class="card__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li style="--i:7; --d:0.625">
+            <a class="card" href="?topic=health-check#contact" data-enquiry-topic="health-check">
+              <div class="card__media" data-photo="health-check" aria-hidden="true"><span class="card__num">08</span></div>
+              <div class="card__body">
+                <h3 class="card__title">HR Compliance Health Check</h3>
+                <p class="card__copy">A structured review of where your HR stands, with clear next steps.</p>
+              </div>
+              <span class="card__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
           </ul>
+          <button class="orbit__pause" type="button" data-orbit-pause aria-pressed="false" hidden>
+            <svg class="billboard__icon billboard__icon--pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 4v8M10.5 4v8"/></svg>
+            <svg class="billboard__icon billboard__icon--play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 3.5l7 4.5-7 4.5z"/></svg>
+            <span class="sr-only" data-orbit-pause-label>Pause the services slider</span>
+          </button>
         </div>
+      </div>
+    </section>
+
+    <section class="industries section" id="industries" aria-labelledby="industries-title" data-industries data-motion>
+      <div class="founder__bg" aria-hidden="true"><span class="founder__satin"></span></div>
+      <div class="ind__drift" aria-hidden="true">
+        <p class="ind__row"><span>Manufacturing &amp; Engineering <i>/</i> Professional Services <i>/</i> Retail &amp; Wholesale <i>/</i> Healthcare <i>/</i> Construction &amp; Trades <i>/</i> Education &amp; Training <i>/</i> </span><span>Manufacturing &amp; Engineering <i>/</i> Professional Services <i>/</i> Retail &amp; Wholesale <i>/</i> Healthcare <i>/</i> Construction &amp; Trades <i>/</i> Education &amp; Training <i>/</i> </span></p>
+        <p class="ind__row ind__row--rev"><span>Education &amp; Training <i>/</i> Construction &amp; Trades <i>/</i> Healthcare <i>/</i> Retail &amp; Wholesale <i>/</i> Professional Services <i>/</i> Manufacturing &amp; Engineering <i>/</i> </span><span>Education &amp; Training <i>/</i> Construction &amp; Trades <i>/</i> Healthcare <i>/</i> Retail &amp; Wholesale <i>/</i> Professional Services <i>/</i> Manufacturing &amp; Engineering <i>/</i> </span></p>
+      </div>
+      <div class="ind__wrap wrap">
+        <header class="ind__head" data-reveal>
+          <p class="eyebrow eyebrow--light rv">Industries</p>
+          <h2 class="h2 ind__title rv" id="industries-title">Industries we serve.</h2>
+          <p class="ind__lede rv">Six sectors, one standard of HR.</p>
+        </header>
+        <ul class="industries__list ind__grid" data-reveal>
+          <li class="ind" style="--t:0">
+            <span class="ind__media" aria-hidden="true"><img src="assets/industries/manufacturing.webp" alt="" width="720" height="560" loading="lazy" decoding="async"></span>
+            <span class="ind__num" aria-hidden="true">01</span>
+            <svg class="ind__icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="5.5" pathLength="1"/><circle cx="24" cy="24" r="12.5" pathLength="1"/><path d="M35.5 28.8 L40.2 30.7" pathLength="1"/><path d="M28.8 35.5 L30.7 40.2" pathLength="1"/><path d="M19.2 35.5 L17.3 40.2" pathLength="1"/><path d="M12.5 28.8 L7.8 30.7" pathLength="1"/><path d="M12.5 19.2 L7.8 17.3" pathLength="1"/><path d="M19.2 12.5 L17.3 7.8" pathLength="1"/><path d="M28.8 12.5 L30.7 7.8" pathLength="1"/><path d="M35.5 19.2 L40.2 17.3" pathLength="1"/></svg>
+            <span class="ind__name">Manufacturing &amp; Engineering</span>
+          </li>
+          <li class="ind" style="--t:1">
+            <span class="ind__media" aria-hidden="true"><img src="assets/industries/professional.webp" alt="" width="720" height="560" loading="lazy" decoding="async"></span>
+            <span class="ind__num" aria-hidden="true">02</span>
+            <svg class="ind__icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="16" width="34" height="23" rx="3" pathLength="1"/><path d="M18 16v-3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3" pathLength="1"/><path d="M7 26h34" pathLength="1"/><path d="M22 26v3h4v-3" pathLength="1"/></svg>
+            <span class="ind__name">Professional Services</span>
+          </li>
+          <li class="ind" style="--t:2">
+            <span class="ind__media" aria-hidden="true"><img src="assets/industries/retail.webp" alt="" width="720" height="560" loading="lazy" decoding="async"></span>
+            <span class="ind__num" aria-hidden="true">03</span>
+            <svg class="ind__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M11 17h26l-2.5 23h-21z" pathLength="1"/><path d="M18 21v-6a6 6 0 0 1 12 0v6" pathLength="1"/></svg>
+            <span class="ind__name">Retail &amp; Wholesale</span>
+          </li>
+          <li class="ind" style="--t:3">
+            <span class="ind__media" aria-hidden="true"><img src="assets/industries/healthcare.webp" alt="" width="720" height="560" loading="lazy" decoding="async"></span>
+            <span class="ind__num" aria-hidden="true">04</span>
+            <svg class="ind__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40C9 30 6 21 11 15c4.5-5 10.5-3.5 13 1 2.5-4.5 8.5-6 13-1 5 6 2 15-13 25z" pathLength="1"/><path d="M11 26h7l3-6 4 10 3-6h9" pathLength="1"/></svg>
+            <span class="ind__name">Healthcare</span>
+          </li>
+          <li class="ind" style="--t:4">
+            <span class="ind__media" aria-hidden="true"><img src="assets/industries/construction.webp" alt="" width="720" height="560" loading="lazy" decoding="async"></span>
+            <span class="ind__num" aria-hidden="true">05</span>
+            <svg class="ind__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 32a14 14 0 0 1 28 0" pathLength="1"/><path d="M6 32h36v4H6z" pathLength="1"/><path d="M20 19v8M28 19v8" pathLength="1"/></svg>
+            <span class="ind__name">Construction &amp; Trades</span>
+          </li>
+          <li class="ind" style="--t:5">
+            <span class="ind__media" aria-hidden="true"><img src="assets/industries/education.webp" alt="" width="720" height="560" loading="lazy" decoding="async"></span>
+            <span class="ind__num" aria-hidden="true">06</span>
+            <svg class="ind__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 20 24 11l20 9-20 9z" pathLength="1"/><path d="M12 24v9c0 3 6 6 12 6s12-3 12-6v-9" pathLength="1"/><path d="M44 20v10" pathLength="1"/></svg>
+            <span class="ind__name">Education &amp; Training</span>
+          </li>
+        </ul>
       </div>
     </section>
 
     <section class="why section" aria-labelledby="why-title" data-why data-motion>
       <div class="why__stage" aria-hidden="true">
         <span class="why__beam"></span>
-        <span class="why__ghost">Why us</span>
       </div>
       <div class="why__grid wrap">
         <div class="why__head" data-reveal>
@@ -500,175 +630,52 @@
 
     <div class="rule wrap" aria-hidden="true"><span></span><svg viewBox="0 0 13 24" preserveAspectRatio="none"><path d="M0 24 L13 0"/></svg><span></span></div>
 
-    <section class="services section" id="services" aria-labelledby="services-title" data-motion>
+    <section class="trust trust--partners" aria-labelledby="partners-title" data-motion>
       
-      <div class="about-intro__bg" aria-hidden="true"><span class="about-intro__silk"></span></div>
-      <div class="services__stage wrap">
-        <header class="sec-head" data-reveal>
-          <p class="eyebrow rv">Services</p>
-          <h2 class="h2 rv" id="services-title">What we take care of.</h2>
-          <p class="sec-head__lede rv">Practical HR support, delivered by people who know South African labour law.</p>
+      <div class="about-intro__bg" aria-hidden="true">
+        <span class="about-intro__silk"></span>
+        <span class="about-intro__light"></span>
+        <img class="about-intro__mark" src="assets/logo/hrhub-monogram.svg" alt="" width="120" height="64" loading="lazy">
+      </div>
+      <div class="trust__inner wrap">
+        <header class="partners__head" data-reveal>
+          <p class="eyebrow rv">Our partners</p>
+          <h2 class="h2 rv" id="partners-title">Trusted specialists, one relationship.</h2>
         </header>
-
-        <div class="orbit" data-orbit>
-          <ul class="cards" data-reveal>
-          <li style="--i:0">
-            <a class="card" href="?topic=hr-compliance#contact" data-enquiry-topic="hr-compliance">
-              <div class="card__media" data-photo="hr-compliance" aria-hidden="true"><span class="card__num">01</span></div>
-              <div class="card__body">
-                <h3 class="card__title">HR Compliance</h3>
-                <p class="card__copy">Keep your policies and practices in line with South African labour law.</p>
-              </div>
-              <span class="card__arrow" aria-hidden="true">→</span>
-            </a>
-          </li>
-          <li style="--i:1">
-            <a class="card" href="?topic=employee-relations#contact" data-enquiry-topic="employee-relations">
-              <div class="card__media" data-photo="employee-relations" aria-hidden="true"><span class="card__num">02</span></div>
-              <div class="card__body">
-                <h3 class="card__title">Employee Relations &amp; Disciplinary Support</h3>
-                <p class="card__copy">Clear guidance through hearings, grievances and incapacity matters.</p>
-              </div>
-              <span class="card__arrow" aria-hidden="true">→</span>
-            </a>
-          </li>
-          <li style="--i:2">
-            <a class="card" href="?topic=ccma#contact" data-enquiry-topic="ccma">
-              <div class="card__media" data-photo="ccma" aria-hidden="true"><span class="card__num">03</span></div>
-              <div class="card__body">
-                <h3 class="card__title">CCMA Representation</h3>
-                <p class="card__copy">Preparation and representation at conciliation and arbitration.</p>
-              </div>
-              <span class="card__arrow" aria-hidden="true">→</span>
-            </a>
-          </li>
-          <li style="--i:3">
-            <a class="card" href="?topic=employment-equity#contact" data-enquiry-topic="employment-equity">
-              <div class="card__media" data-photo="employment-equity" aria-hidden="true"><span class="card__num">04</span></div>
-              <div class="card__body">
-                <h3 class="card__title">Employment Equity</h3>
-                <p class="card__copy">EE plans, committees and reports, done properly and on time.</p>
-              </div>
-              <span class="card__arrow" aria-hidden="true">→</span>
-            </a>
-          </li>
-          <li style="--i:4">
-            <a class="card" href="?topic=training#contact" data-enquiry-topic="training">
-              <div class="card__media" data-photo="training" aria-hidden="true"><span class="card__num">05</span></div>
-              <div class="card__body">
-                <h3 class="card__title">Training &amp; Development</h3>
-                <p class="card__copy">Practical training that helps managers and teams handle people matters well.</p>
-              </div>
-              <span class="card__arrow" aria-hidden="true">→</span>
-            </a>
-          </li>
-          <li style="--i:5">
-            <a class="card" href="?topic=policies-contracts#contact" data-enquiry-topic="policies-contracts">
-              <div class="card__media" data-photo="policies-contracts" aria-hidden="true"><span class="card__num">06</span></div>
-              <div class="card__body">
-                <h3 class="card__title">Policies &amp; Contracts</h3>
-                <p class="card__copy">Employment contracts and workplace policies written for your business.</p>
-              </div>
-              <span class="card__arrow" aria-hidden="true">→</span>
-            </a>
-          </li>
-          <li style="--i:6">
-            <a class="card" href="?topic=hr-advisory#contact" data-enquiry-topic="hr-advisory">
-              <div class="card__media" data-photo="hr-advisory" aria-hidden="true"><span class="card__num">07</span></div>
-              <div class="card__body">
-                <h3 class="card__title">HR Advisory</h3>
-                <p class="card__copy">Straight answers to day-to-day people questions, when you need them.</p>
-              </div>
-              <span class="card__arrow" aria-hidden="true">→</span>
-            </a>
-          </li>
-          <li style="--i:7">
-            <a class="card" href="?topic=health-check#contact" data-enquiry-topic="health-check">
-              <div class="card__media" data-photo="health-check" aria-hidden="true"><span class="card__num">08</span></div>
-              <div class="card__body">
-                <h3 class="card__title">HR Compliance Health Check</h3>
-                <p class="card__copy">A structured review of where your HR stands, with clear next steps.</p>
-              </div>
-              <span class="card__arrow" aria-hidden="true">→</span>
-            </a>
-          </li>
+        
+        <div class="plogos__rail">
+          <ul class="plogos" data-reveal>
+            <li class="plogo rv">
+              <a href="https://siweyawellness.co.za" target="_blank" rel="noopener" class="plogo__link"><picture><source type="image/webp" srcset="assets/partners/siweya-wellness-solutions.webp"><img src="assets/partners/siweya-wellness-solutions.png" alt="Siweya Wellness Solutions" loading="lazy" decoding="async"></picture><span class="sr-only"> (opens in a new tab)</span></a>
+              <span class="sr-only">Employee wellbeing: counselling, mental-health, financial and family wellness programmes.</span>
+            </li>
+            <li class="plogo rv">
+              <picture><source type="image/webp" srcset="assets/partners/express-employment-professionals.webp"><img src="assets/partners/express-employment-professionals.png" alt="Express Employment Professionals" loading="lazy" decoding="async"></picture>
+              <span class="sr-only">Recruitment: an international staffing network, in South Africa since 1998.</span>
+            </li>
+            
           </ul>
-          <button class="orbit__pause" type="button" data-orbit-pause aria-pressed="false" hidden>
-            <svg class="billboard__icon billboard__icon--pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 4v8M10.5 4v8"/></svg>
-            <svg class="billboard__icon billboard__icon--play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 3.5l7 4.5-7 4.5z"/></svg>
-            <span class="sr-only" data-orbit-pause-label>Pause the services slider</span>
-          </button>
         </div>
       </div>
     </section>
 
-    <div class="rule wrap" aria-hidden="true"><span></span><svg viewBox="0 0 13 24" preserveAspectRatio="none"><path d="M0 24 L13 0"/></svg><span></span></div>
-
-    <section class="process section" aria-labelledby="process-title">
-      <div class="wrap">
-        <header class="sec-head" data-reveal>
-          <p class="eyebrow rv">How it works</p>
-          <h2 class="h2 rv" id="process-title">Three steps, one point of contact.</h2>
-        </header>
-
-        <ol class="steps" data-reveal>
-          <li class="step step--1 rv">
-            <span class="step__num">01</span>
-            <h3 class="step__title">Consult</h3>
-            <p>We talk through your business, your people and where HR is causing friction.</p>
-          </li>
-          <li class="step step--2 rv">
-            <svg class="step__slash" viewBox="0 0 26 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 48 L26 0"/></svg>
-            <span class="step__num">02</span>
-            <h3 class="step__title">Assess</h3>
-            <p>We review contracts, policies, payroll and records against current legislation.</p>
-          </li>
-          <li class="step step--3 rv">
-            <svg class="step__slash" viewBox="0 0 26 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 48 L26 0"/></svg>
-            <span class="step__num">03</span>
-            <h3 class="step__title">Implement</h3>
-            <p>We put the fixes in place and stay on hand to keep things running.</p>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="industries section section--stone" id="industries" aria-labelledby="industries-title">
-      <div class="wrap">
-        <header class="sec-head" data-reveal>
-          <p class="eyebrow rv">Industries</p>
-          <h2 class="h2 rv" id="industries-title">Industries we serve.</h2>
-        </header>
-        <ul class="industries__list">
-          <li>Manufacturing &amp; Engineering</li>
-          <li>Professional Services</li>
-          <li>Retail &amp; Wholesale</li>
-          <li>Healthcare</li>
-          <li>Construction &amp; Trades</li>
-          <li>Education &amp; Training</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="cta" aria-labelledby="cta-title">
-      <div class="cta__inner wrap" data-reveal>
-        <h2 class="cta__title rv" id="cta-title">Let’s take HR off your plate.</h2>
-        <div class="cta__side rv">
-          <a class="btn btn--light" href="#contact" data-booking-open data-source="final-banner" aria-haspopup="dialog">Book a consultation</a>
-          <dl class="cta__details">
-            <div>
-              <dt>Phone</dt>
-              <dd><a href="tel:+27719205340" data-contact="phone-0">+27 71 920 5340</a></dd>
-              <dd><a href="tel:+27795840905" data-contact="phone-1">+27 79 584 0905</a></dd>
-            </div>
-            <div>
-              <dt>Email</dt>
-              <dd><a href="mailto:info@hrhubconsultancy.co.za" data-contact="email">info@hrhubconsultancy.co.za</a></dd>
-            </div>
-          </dl>
+    <section class="cta cta--film" aria-labelledby="cta-title" data-film data-motion>
+      <div class="founder__bg" aria-hidden="true"><span class="founder__satin"></span></div>
+      <div class="film__beam" aria-hidden="true"></div>
+      <div class="film wrap">
+        <h2 class="film__title" id="cta-title">
+          <span class="film__line film__line--1"><span class="film__w" style="--k:0"><span>Let’s</span></span> <span class="film__w" style="--k:1"><span>take</span></span> <span class="film__w film__hr" style="--k:2"><span class="film__hr-word">HR</span><img class="film__plate" src="assets/img/silver-plate.webp" alt="" width="600" height="219" decoding="async" loading="lazy"></span> <span class="film__w" style="--k:3"><span>off</span></span> <span class="film__w" style="--k:4"><span>your</span></span> <span class="film__w" style="--k:5"><span>plate,</span></span></span>
+          <span class="film__line film__line--2"><span class="film__reveal">Contact us today.</span></span>
+        </h2>
+        <div class="film__action">
+          <a class="btn btn--light film__btn" href="#contact" data-booking-open data-source="final-banner" aria-haspopup="dialog">Book a consultation</a>
         </div>
       </div>
-      <svg class="cta__slash" viewBox="0 0 532 1000" preserveAspectRatio="none" aria-hidden="true"><path d="M0 1000 L532 0" vector-effect="non-scaling-stroke"/></svg>
+      <div class="film__progress" aria-hidden="true"><span></span></div>
+      <button class="film__replay" type="button" data-film-replay hidden>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8a5 5 0 1 0 1.6-3.7M3 2.5v2.8h2.8"/></svg>
+        <span class="sr-only">Replay the animation</span>
+      </button>
     </section>
 
     <section class="contact section" id="contact" aria-labelledby="contact-title">
@@ -676,32 +683,37 @@
         <div class="contact__intro" data-reveal>
           <p class="eyebrow rv">Contact</p>
           <h2 class="h2 rv" id="contact-title">Tell us what you need.</h2>
-          <p class="rv">Share a few details about your business and we’ll get back to you to arrange a consultation.</p>
-          <p class="contact__promise rv" data-contact="promise">We reply within one business day.</p>
-          <dl class="contact__details rv">
-            <div>
-              <dt>Phone</dt>
-              <dd><a href="tel:+27719205340" data-contact="phone-0">+27 71 920 5340</a></dd>
-              <dd><a href="tel:+27795840905" data-contact="phone-1">+27 79 584 0905</a></dd>
-            </div>
-            <div>
-              <dt>Email</dt>
-              <dd><a href="mailto:info@hrhubconsultancy.co.za" data-contact="email">info@hrhubconsultancy.co.za</a></dd>
-            </div>
-            <div>
-              <dt>WhatsApp</dt>
-              <dd><a href="https://wa.me/27719205340" data-contact="whatsapp" target="_blank" rel="noopener">Message us on WhatsApp<span class="sr-only"> (opens WhatsApp)</span></a></dd>
-            </div>
-            <div>
-              <dt>Office hours</dt>
-              <dd data-contact="hours">Mon–Fri 08:00–17:00</dd>
-            </div>
-          </dl>
+          <p class="contact__lede rv">Share a few details and we’ll come back to you to arrange a consultation.</p>
+          <ul class="reach rv" aria-label="Other ways to reach us">
+            <li class="reach__row">
+              <span class="reach__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h3.5l1.7 4.3-2.2 1.4a11 11 0 0 0 6.3 6.3l1.4-2.2L20 15.5V19a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/></svg></span>
+              <span class="reach__body">
+                <span class="reach__label">Call</span>
+                <a href="tel:+27719205340" data-contact="phone-0">+27 71 920 5340</a>
+                <a href="tel:+27795840905" data-contact="phone-1">+27 79 584 0905</a>
+              </span>
+            </li>
+            <li class="reach__row">
+              <span class="reach__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span>
+              <span class="reach__body">
+                <span class="reach__label">Email</span>
+                <a href="mailto:info@hrhubconsultancy.co.za" data-contact="email">info@hrhubconsultancy.co.za</a>
+              </span>
+            </li>
+            <li class="reach__row">
+              <span class="reach__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.2-3.6A8 8 0 1 1 8.3 18.4z"/><path d="M9.2 9.3c.3 2.4 2.6 4.6 5 5l1-1.1-1.6-.9-.8.7a4.4 4.4 0 0 1-2.3-2.3l.7-.8-.9-1.6z"/></svg></span>
+              <span class="reach__body">
+                <span class="reach__label">WhatsApp</span>
+                <a href="https://wa.me/27719205340" data-contact="whatsapp" target="_blank" rel="noopener">Message us<span class="sr-only"> (opens WhatsApp)</span></a>
+              </span>
+            </li>
+          </ul>
+          <p class="reach__meta rv"><span data-contact="hours">Mon–Fri 08:00–17:00</span> <span aria-hidden="true">·</span> <span data-contact="promise">We reply within one business day.</span></p>
           <p class="contact__urgent rv">Facing a CCMA date? <a href="tel:+27719205340" data-contact="phone-0">Call us directly.</a></p>
         </div>
 
         <div class="contact__form-wrap">
-          <form class="form enq" novalidate data-enquiry-form>
+          <form class="form enq contact__card" novalidate data-enquiry-form>
             <input type="hidden" name="page" value="/">
             <input type="hidden" name="topicParam" value="">
 
@@ -712,34 +724,17 @@
                 <p class="field__error" id="f-name-err" aria-live="polite"></p>
               </div>
               <div class="field">
-                <label for="f-company">Company <span class="field__opt">(optional)</span></label>
-                <input id="f-company" name="company" type="text" autocomplete="organization" maxlength="120" aria-describedby="f-company-err">
-                <p class="field__error" id="f-company-err" aria-live="polite"></p>
-              </div>
-            </div>
-            <div class="form__row form__row--2">
-              <div class="field">
                 <label for="f-email">Email</label>
                 <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="f-email-err">
                 <p class="field__error" id="f-email-err" aria-live="polite"></p>
               </div>
+            </div>
+            <div class="form__row form__row--2">
               <div class="field">
                 <label for="f-phone">Phone <span class="field__opt" data-enq-phone-hint>(optional)</span></label>
                 <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" aria-describedby="f-phone-err">
                 <p class="field__error" id="f-phone-err" aria-live="polite"></p>
               </div>
-            </div>
-
-            <fieldset class="field enq-method">
-              <legend>Preferred contact method</legend>
-              <div class="enq-method__row">
-                <label class="enq-seg"><input type="radio" name="contactMethod" value="Email" checked><span>Email</span></label>
-                <label class="enq-seg"><input type="radio" name="contactMethod" value="Phone"><span>Phone</span></label>
-                <label class="enq-seg"><input type="radio" name="contactMethod" value="WhatsApp"><span>WhatsApp</span></label>
-              </div>
-            </fieldset>
-
-            <div class="form__row form__row--2">
               <div class="field">
                 <label for="f-topic">What do you need help with?</label>
                 <select id="f-topic" name="topic" class="enq-select" required aria-describedby="f-topic-err">
@@ -756,35 +751,29 @@
                 </select>
                 <p class="field__error" id="f-topic-err" aria-live="polite"></p>
               </div>
-              <div class="field">
-                <label for="f-size">Team size <span class="field__opt">(optional)</span></label>
-                <select id="f-size" name="teamSize" class="enq-select">
-                  <option value="">Select</option>
-                  <option>1–10 employees</option>
-                  <option>11–50 employees</option>
-                  <option>51–200 employees</option>
-                  <option>200+ employees</option>
-                </select>
-              </div>
             </div>
             <div class="field">
-              <label for="f-industry">Industry <span class="field__opt">(optional)</span></label>
-              <select id="f-industry" name="industry" class="enq-select">
-                <option value="">Select</option>
-                  <option>Transport &amp; Logistics</option>
-                  <option>Retail</option>
-                  <option>Hospitality</option>
-                  <option>Professional Services</option>
-                  <option>Manufacturing</option>
-                  <option>Construction</option>
-                  <option>Healthcare</option>
-                  <option>Education</option>
-                  <option>Agriculture</option>
-                  <option>Non-profit</option>
-                  <option>Other</option>
-              </select>
+              <label for="f-message">How can we help?</label>
+              <textarea id="f-message" name="message" rows="4" required minlength="20" maxlength="2000"
+                placeholder="E.g. We have 25 staff and our contracts are outdated…"
+                aria-describedby="f-message-note f-message-count f-message-err"></textarea>
+              <div class="enq-meta">
+                <p class="enq-hint" id="f-message-note">Please don’t include employees’ names, ID numbers or other confidential details here – we’ll discuss those privately.</p>
+                <p class="enq-count" id="f-message-count" data-enq-count>0 / 2000</p>
+              </div>
+              <p class="field__error" id="f-message-err" aria-live="polite"></p>
             </div>
 
+            <div class="enq-options">
+              <fieldset class="field enq-method">
+                <legend>Reply by</legend>
+                <div class="enq-method__row">
+                  <label class="enq-seg"><input type="radio" name="contactMethod" value="Email" checked><span>Email</span></label>
+                  <label class="enq-seg"><input type="radio" name="contactMethod" value="Phone"><span>Phone</span></label>
+                  <label class="enq-seg"><input type="radio" name="contactMethod" value="WhatsApp"><span>WhatsApp</span></label>
+                </div>
+              </fieldset>
+            </div>
             <div class="enq-urgent">
               <label class="bk-switch" for="f-urgent">
                 <input type="checkbox" id="f-urgent" name="urgent" value="on" aria-controls="f-urgent-fields">
@@ -801,50 +790,76 @@
               </div>
             </div>
 
-            <div class="field">
-              <label for="f-message">How can we help?</label>
-              <textarea id="f-message" name="message" rows="5" required minlength="20" maxlength="2000"
-                        placeholder="E.g. We have 25 staff and our contracts are outdated…"
-                        aria-describedby="f-message-note f-message-count f-message-err"></textarea>
-              <div class="enq-meta">
-                <p class="enq-hint" id="f-message-note">Please don’t include employees’ names, ID numbers or other confidential details here – we’ll discuss those privately.</p>
-                <p class="enq-count" id="f-message-count" data-enq-count>0 / 2000</p>
+            <details class="enq-more">
+              <summary>Add more detail <span class="field__opt">(optional)</span></summary>
+              <div class="enq-more__grid">
+                <div class="field">
+                  <label for="f-company">Company <span class="field__opt">(optional)</span></label>
+                  <input id="f-company" name="company" type="text" autocomplete="organization" maxlength="120" aria-describedby="f-company-err">
+                  <p class="field__error" id="f-company-err" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="f-size">Team size <span class="field__opt">(optional)</span></label>
+                  <select id="f-size" name="teamSize" class="enq-select">
+                    <option value="">Select</option>
+                    <option>1–10 employees</option>
+                    <option>11–50 employees</option>
+                    <option>51–200 employees</option>
+                    <option>200+ employees</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="f-industry">Industry <span class="field__opt">(optional)</span></label>
+                  <select id="f-industry" name="industry" class="enq-select">
+                    <option value="">Select</option>
+                    <option>Transport &amp; Logistics</option>
+                    <option>Retail</option>
+                    <option>Hospitality</option>
+                    <option>Professional Services</option>
+                    <option>Manufacturing</option>
+                    <option>Construction</option>
+                    <option>Healthcare</option>
+                    <option>Education</option>
+                    <option>Agriculture</option>
+                    <option>Non-profit</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="f-hear">How did you hear about us? <span class="field__opt">(optional)</span></label>
+                  <select id="f-hear" name="hearAbout" class="enq-select">
+                    <option value="">Select</option>
+                    <option>Google</option>
+                    <option>Referral</option>
+                    <option>LinkedIn</option>
+                    <option>Facebook</option>
+                    <option>Instagram</option>
+                    <option>Other</option>
+                  </select>
+                </div>
               </div>
-              <p class="field__error" id="f-message-err" aria-live="polite"></p>
-            </div>
-
-            <div class="field">
-              <label for="f-hear">How did you hear about us? <span class="field__opt">(optional)</span></label>
-              <select id="f-hear" name="hearAbout" class="enq-select">
-                <option value="">Select</option>
-                <option>Google</option>
-                <option>Referral</option>
-                <option>LinkedIn</option>
-                <option>Facebook</option>
-                <option>Instagram</option>
-                <option>Other</option>
-              </select>
-            </div>
+            </details>
 
             <div class="hp" aria-hidden="true">
               <label for="f-website">Leave this field empty</label>
               <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
             </div>
 
-            <div class="field field--check">
-              <input id="f-consent" name="consent" type="checkbox" value="on" required aria-describedby="f-consent-err">
-              <label for="f-consent">I agree that HR Hub Consultancy may use these details to respond to my enquiry — see <a href="privacy-policy.html">Privacy Policy</a>.</label>
-              <p class="field__error" id="f-consent-err" aria-live="polite"></p>
+            <div class="enq-foot">
+              <div class="field field--check">
+                <input id="f-consent" name="consent" type="checkbox" value="on" required aria-describedby="f-consent-err">
+                <label for="f-consent">I agree that HR Hub Consultancy may use these details to respond to my enquiry — see <a href="privacy-policy.html">Privacy Policy</a>.</label>
+                <p class="field__error" id="f-consent-err" aria-live="polite"></p>
+              </div>
+              <button class="btn btn--dark form__submit enq-submit" type="submit">
+                <span class="bk-submit__spinner" aria-hidden="true"></span>
+                <span class="enq-submit__label">Send enquiry</span>
+              </button>
             </div>
-
-            <button class="btn btn--dark form__submit enq-submit" type="submit">
-              <span class="bk-submit__spinner" aria-hidden="true"></span>
-              <span class="enq-submit__label">Send enquiry</span>
-            </button>
             <p class="form__status" role="status" aria-live="polite"></p>
           </form>
 
-          <div class="form-success enq-success" tabindex="-1" hidden data-enquiry-success>
+          <div class="form-success enq-success contact__card" tabindex="-1" hidden data-enquiry-success>
             <svg class="form-success__slash" viewBox="0 0 26 48" aria-hidden="true"><path d="M0 48 L26 0"/></svg>
             <h3 class="form-success__title" data-enq-success-title>Enquiry received.</h3>
             <p class="enq-success__message" data-enq-success-message></p>
@@ -1136,7 +1151,7 @@
     </aside>
   </div>
 
-  <script src="assets/js/main.js?v=122" defer></script>
+  <script src="assets/js/main.js?v=141" defer></script>
 
 <div class="preview-banner" role="note">Preview site · work in progress · forms are not live yet</div>
 <style>

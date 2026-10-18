@@ -11,8 +11,10 @@ Downloaded 17 Oct 2026, cropped to 900x700 and converted to WebP.
   employee-relations.webp  https://unsplash.com/photos/2AOIg7Qvu8w
   ccma.webp                https://unsplash.com/photos/nSpj-Z12lX0
   employment-equity.webp   https://unsplash.com/photos/yd_RKGH_RH4
+  bbbee.webp               https://unsplash.com/photos/rg1y72eKw6o
   training.webp            https://unsplash.com/photos/Q80LYxv_Tbs
   policies-contracts.webp  https://unsplash.com/photos/QI6NLgN5XnM
+  work-visas.webp          https://unsplash.com/photos/gMJ3tFOLvnA
   hr-advisory.webp         https://unsplash.com/photos/n1yI8oExVns
   health-check.webp        https://unsplash.com/photos/yKnIbJV0RbY
 

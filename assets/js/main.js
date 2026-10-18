@@ -660,7 +660,7 @@
         orbit.style.setProperty('--ch', px(ch));
         orbit.style.setProperty('--S', px(S));
         orbit.style.setProperty('--orbit-h', px(S * 4));
-        orbit.style.setProperty('--orbit-dur', desk ? '46s' : '40s');
+        orbit.style.setProperty('--orbit-dur', desk ? '58s' : '50s'); // ten cards, same pace as before
       };
       orbit.classList.add('is-on');
       stage.classList.add('has-orbit');
@@ -1120,18 +1120,10 @@
       setTimeout(() => { const n = $('#f-name'); if (n) n.focus({ preventScroll: true }); }, reduceMotion.matches ? 0 : 700);
     });
 
-    // "HR Compliance Health Check": switch the booking to that topic and show it.
+    // "Take the free Health Check": swap the booking card for the Health Check card.
     $('[data-booking-healthcheck]', drawer).addEventListener('click', () => {
-      if (!bkSuccess.hidden) resetBooking();
-      const select = bkForm.elements.topic;
-      select.value = cfg ? cfg.healthCheckTopic : 'HR Compliance Health Check';
-      if (source === 'unknown') source = 'panel-health-check';
-      updateSummary();
-      select.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'center' });
-      select.classList.remove('is-flash');
-      void select.offsetWidth;
-      select.classList.add('is-flash');
-      select.focus({ preventScroll: true });
+      closeBooking({ restoreFocus: false });
+      if (window.hrhHealthCheck) setTimeout(() => window.hrhHealthCheck.open(), reduceMotion.matches ? 0 : 350);
     });
 
     panel.addEventListener('keydown', (e) => {

@@ -26,10 +26,11 @@
   <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
 
   <link rel="preload" href="assets/fonts/syne-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" type="image/avif"
         imagesrcset="assets/img/hero-satin-sm.avif 768w, assets/img/hero-satin.avif 1536w" imagesizes="100vw" fetchpriority="high">
   <script src="assets/js/preview-api.js"></script>
-  <link rel="stylesheet" href="assets/css/styles.css?v=152">
+  <link rel="stylesheet" href="assets/css/styles.css?v=162">
   <script>
     (function (d) {
       d.classList.add('js');
@@ -60,7 +61,7 @@
     "description": "HR compliance, payroll administration and people management for growing South African businesses.",
     "telephone": "+27 71 920 5340",
     "email": "info@hrhubconsultancy.co.za",
-    "address": { "@type": "PostalAddress", "addressLocality": "Johannesburg", "addressCountry": "ZA" },
+    "address": { "@type": "PostalAddress", "streetAddress": "48 Michael Street", "addressLocality": "Linmeyer, Johannesburg", "addressRegion": "Gauteng", "addressCountry": "ZA" },
     "founder": { "@type": "Person", "name": "Florence Malinga", "image": "https://hrhubconsultancy.co.za/assets/img/florence-malinga.webp" },
     "openingHours": "Mo-Fr 08:00-17:00",
     "areaServed": { "@type": "Country", "name": "South Africa" }
@@ -70,14 +71,31 @@
 <body>
   
   <div class="intro" data-intro>
+    
     <div class="intro__curtain" aria-hidden="true">
-      <div class="intro__bloom"></div>
+      <div class="intro__half intro__half--a"></div>
+      <div class="intro__half intro__half--b"></div>
+    </div>
+    <div class="intro__stage" aria-hidden="true">
+      <div class="intro__aurora"></div>
+      <div class="intro__beam intro__beam--1"></div>
+      <div class="intro__beam intro__beam--2"></div>
+      <div class="intro__dust"></div>
+      <div class="intro__grain"></div>
+      <div class="intro__vignette"></div>
       <div class="intro__content">
-        <img class="intro__logo" src="assets/logo/hrhub-logo-400.png" alt="" width="140" height="140">
-        <p class="intro__name"><span>HR Hub Consultancy</span></p>
+        <div class="intro__badge">
+          <svg class="intro__ring" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48.5"/></svg>
+          <span class="intro__pulse"></span>
+          <span class="intro__pulse intro__pulse--2"></span>
+          <picture><source srcset="assets/logo/hrhub-logo-400.webp" type="image/webp"><img class="intro__logo" src="assets/logo/hrhub-logo-400.png" alt="" width="140" height="140" fetchpriority="high"></picture>
+          <span class="intro__sheen"></span>
+        </div>
+        <p class="intro__name"><span style="--i:0">H</span><span style="--i:1">R</span><span class="intro__sp"> </span><span style="--i:3">H</span><span style="--i:4">u</span><span style="--i:5">b</span><span class="intro__sp"> </span><span style="--i:7">C</span><span style="--i:8">o</span><span style="--i:9">n</span><span style="--i:10">s</span><span style="--i:11">u</span><span style="--i:12">l</span><span style="--i:13">t</span><span style="--i:14">a</span><span style="--i:15">n</span><span style="--i:16">c</span><span style="--i:17">y</span></p>
         <p class="intro__tag">A complete HR solution for your business</p>
       </div>
     </div>
+    <span class="intro__cut" aria-hidden="true"></span>
     <button class="intro__skip" type="button" data-intro-skip>Skip intro</button>
   </div>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -159,29 +177,6 @@
           <a class="btn btn--light hero__btn" href="?health-check" data-hc-open aria-haspopup="dialog">HR Compliance Health Check</a>
           <a class="btn hero__btn hero__btn--glass" href="#contact" data-enquiry>Send an enquiry</a>
         </div>
-      </div>
-    </section>
-
-    <section class="trust" aria-label="What we cover" data-motion>
-      <div class="trust__silk" aria-hidden="true"></div>
-      <div class="trust__inner wrap">
-        <ul class="trust__plaque" data-reveal>
-          <li class="trust__item rv">
-
-            <span class="trust__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span class="trust__text">Labour-law<br class="trust__br"> compliant</span>
-          </li>
-          <li class="trust__item rv">
-
-            <span class="trust__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span class="trust__text">Payroll<br class="trust__br"> handled</span>
-          </li>
-          <li class="trust__item rv">
-
-            <span class="trust__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span class="trust__text">People-first<br class="trust__br"> HR</span>
-          </li>
-        </ul>
       </div>
     </section>
 
@@ -415,7 +410,7 @@
             </div>
 
             <div class="founder__actions">
-              <a class="btn btn--light hero__btn" href="#contact" data-booking-open data-source="unknown" aria-haspopup="dialog">Book a consultation</a>
+              <a class="btn btn--light hero__btn" href="#contact" data-booking-open data-source="founder" aria-haspopup="dialog">Book a consultation</a>
               <a class="btn hero__btn hero__btn--glass" href="#contact" data-enquiry>Send an enquiry</a>
             </div>
           </div>
@@ -674,6 +669,10 @@
               <picture><source type="image/webp" srcset="assets/partners/express-employment-professionals.webp"><img src="assets/partners/express-employment-professionals.png" alt="Express Employment Professionals" loading="lazy" decoding="async"></picture>
               <span class="sr-only">Recruitment: an international staffing network, in South Africa since 1998.</span>
             </li>
+            <li class="plogo plogo--tall rv">
+              <picture><source type="image/webp" srcset="assets/partners/yonatech.webp"><img src="assets/partners/yonatech.png" alt="Yonatech" loading="lazy" decoding="async"></picture>
+              <span class="sr-only">Digital partner: Building Digital Excellence.</span>
+            </li>
             
           </ul>
         </div>
@@ -726,6 +725,13 @@
               <span class="reach__body">
                 <span class="reach__label">WhatsApp</span>
                 <a href="https://wa.me/27719205340" data-contact="whatsapp" target="_blank" rel="noopener">Message us<span class="sr-only"> (opens WhatsApp)</span></a>
+              </span>
+            </li>
+            <li class="reach__row">
+              <span class="reach__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+              <span class="reach__body">
+                <span class="reach__label">Office</span>
+                <a href="https://www.google.com/maps/search/?api=1&amp;query=48+Michael+Street%2C+Linmeyer%2C+Johannesburg" target="_blank" rel="noopener">48 Michael Street, Linmeyer, Johannesburg<span class="sr-only"> (opens Google Maps)</span></a>
               </span>
             </li>
           </ul>
@@ -892,6 +898,27 @@
           </div>
         </div>
       </div>
+
+      <div class="contact__map-wrap wrap">
+        
+        <figure class="contact__map" data-reveal>
+          <div class="map-card rv">
+            <iframe
+              class="map-card__frame"
+              src="https://www.google.com/maps?q=48+Michael+Street,+Linmeyer,+Johannesburg&amp;z=16&amp;output=embed"
+              title="Map showing HR Hub Consultancy at 48 Michael Street, Linmeyer, Johannesburg"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+            <figcaption class="map-card__label">
+              <span class="map-card__eyebrow">Our office</span>
+              <span class="map-card__address">48 Michael Street<br>Linmeyer, Johannesburg</span>
+              <span class="map-card__hours" data-contact="hours">Mon–Fri 08:00–17:00</span>
+              <a class="map-card__link" href="https://www.google.com/maps/dir/?api=1&amp;destination=48+Michael+Street%2C+Linmeyer%2C+Johannesburg" target="_blank" rel="noopener">Get directions<span class="sr-only"> (opens Google Maps)</span> <span aria-hidden="true">→</span></a>
+            </figcaption>
+          </div>
+        </figure>
+      </div>
     </section>
   </main>
 
@@ -911,6 +938,7 @@
         </ul>
       </nav>
       <address class="footer__contact">
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=48+Michael+Street%2C+Linmeyer%2C+Johannesburg" target="_blank" rel="noopener">48 Michael Street<br>Linmeyer, Johannesburg<span class="sr-only"> (opens Google Maps)</span></a>
         <a href="tel:+27719205340" data-contact="phone-0">+27 71 920 5340</a>
         <a href="tel:+27795840905" data-contact="phone-1">+27 79 584 0905</a>
         <a href="mailto:info@hrhubconsultancy.co.za" data-contact="email">info@hrhubconsultancy.co.za</a>
@@ -1238,9 +1266,8 @@
       </footer>
     </aside>
   </div>
-
-  <script src="assets/js/main.js?v=152" defer></script>
-  <script src="assets/js/health-check.js?v=152" defer></script>
+  <script src="assets/js/main.js?v=154" defer></script>
+  <script src="assets/js/health-check.js?v=154" defer></script>
 
 <div class="preview-banner" role="note">Preview site · work in progress · forms are not live yet</div>
 <style>

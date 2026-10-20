@@ -1300,6 +1300,8 @@
      the same endpoint, which answers with a simple HTML page. */
   const enq = $('[data-enquiry-form]');
   if (enq) {
+    // Analytics: the first time someone starts filling in the form.
+    enq.addEventListener('input', () => { if (window.hrhTrack) window.hrhTrack('enquiry_start'); }, { once: true });
     const DRAFT_KEY = 'hrh-enquiry-draft';
     const MSG_MIN = 20;
     const MSG_MAX = 2000;

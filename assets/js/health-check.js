@@ -112,6 +112,7 @@
   }
 
   function begin(fromSaved) {
+    if (window.hrhTrack) window.hrhTrack('hc_start');
     if (fromSaved) {
       const saved = load() || {};
       state = { ...blank(), ...saved, details: { ...blank().details, ...(saved.details || {}) } };
@@ -409,6 +410,7 @@
         return;
       }
       clearSaved();
+      if (window.hrhTrack) window.hrhTrack('hc_complete');
       // Hand the results to the results page (instant, and the only copy on the preview site).
       try { sessionStorage.setItem(RESULT_KEY, JSON.stringify(data)); } catch (e) { /* storage unavailable */ }
       location.href = `health-check-results.html?ref=${encodeURIComponent(data.ref)}&k=${encodeURIComponent(data.key || '')}`;

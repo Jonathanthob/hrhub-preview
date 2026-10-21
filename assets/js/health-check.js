@@ -5,7 +5,7 @@
  * step: about the business, each area that applies, then where to send the
  * report. Progress is kept in this browser (localStorage) so people can leave
  * and come back. POST /api/health-check scores the answers on the server and
- * emails the report; the results then open on health-check-results.html.
+ * emails the report; the results then open on /health-check-results.
  * Exposes window.hrhHealthCheck.open() for other scripts (the booking card).
  */
 (function () {
@@ -239,7 +239,7 @@
       </label>
       <div class="field field--check hc-consent">
         <input id="hc-consent" name="consent" type="checkbox"${d.consent ? ' checked' : ''} aria-describedby="hc-consent-err">
-        <label for="hc-consent">I agree that HR Hub Consultancy may use my answers and details to send my report and respond to me — see <a href="privacy-policy.html">Privacy Policy</a>.</label>
+        <label for="hc-consent">I agree that HR Hub Consultancy may use my answers and details to send my report and respond to me — see <a href="privacy-policy">Privacy Policy</a>.</label>
         <p class="field__error" id="hc-consent-err" aria-live="polite"></p>
       </div>`;
   }
@@ -413,7 +413,7 @@
       if (window.hrhTrack) window.hrhTrack('hc_complete');
       // Hand the results to the results page (instant, and the only copy on the preview site).
       try { sessionStorage.setItem(RESULT_KEY, JSON.stringify(data)); } catch (e) { /* storage unavailable */ }
-      location.href = `health-check-results.html?ref=${encodeURIComponent(data.ref)}&k=${encodeURIComponent(data.key || '')}`;
+      location.href = `health-check-results?ref=${encodeURIComponent(data.ref)}&k=${encodeURIComponent(data.key || '')}`;
     } catch (err) {
       errorEl.textContent = 'We couldn’t reach the server. Please check your connection and try again; your answers are saved.';
       stopSending();

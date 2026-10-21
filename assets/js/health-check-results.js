@@ -1,4 +1,4 @@
-/* HR Compliance Health Check: the results page (health-check-results.html)
+/* HR Compliance Health Check: the results page (/health-check-results)
  *
  * Opened with ?ref=…&k=… (the private link). Straight after the check, the
  * results come from this tab's sessionStorage; from the email link they come
